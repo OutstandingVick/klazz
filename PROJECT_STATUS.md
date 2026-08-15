@@ -23,3 +23,10 @@
 - Live current and historical answers now pass through the resolver
 - Multiple active facts produce a conflict rather than an arbitrary answer
 - Validation: 10/10 HTTP tests and 40/40 local benchmark
+
+## Step 4 — Third mutable fact
+
+- Status: complete
+- Added headcount history: 8 employees in June → 10 employees currently
+- Storage: real HydraDB `SUPERSEDES` relationship
+- Both historical and current headcount queries pass through `/api/ask`

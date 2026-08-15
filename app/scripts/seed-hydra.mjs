@@ -54,6 +54,12 @@ await createEdgePair(
   { id: 92104, session: "session-2026-05-10-burn", key: "burn_plan", value: "$71,000 monthly burn", time: "2026-05-10T10:00:00Z", status: "superseded" }
 );
 
+await createEdgePair(
+  { id: 92401, session: "session-2026-07-25-headcount", key: "headcount", value: "10 employees", time: "2026-07-25T10:00:00Z" },
+  "SUPERSEDES",
+  { id: 92400, session: "session-2026-06-12-headcount", key: "headcount", value: "8 employees", time: "2026-06-12T10:00:00Z", status: "superseded" }
+);
+
 const stable = [
   [92201,"session-2026-01-05-company","company_name","Lumen Labs"],
   [92202,"session-2026-01-09-customer","ideal_customer","Seed-stage B2B software companies"],

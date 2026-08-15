@@ -1,4 +1,4 @@
-export type QueryKind = "current" | "historical" | "multi" | "stable_name" | "stable_customer" | "stable_price" | "stable_region" | "stable_platform" | "unknown";
+export type QueryKind = "current" | "historical" | "current_headcount" | "historical_headcount" | "multi" | "stable_name" | "stable_customer" | "stable_price" | "stable_region" | "stable_platform" | "unknown";
 export type Evidence = { sessionId: string; eventTime: string; value: string; status: "active" | "superseded" };
 export type TemporalFact = Evidence & { factKey: string };
 export type Resolution = { status: "resolved" | "conflict" | "not_found"; selectedFact?: TemporalFact; supersededFacts?: TemporalFact[]; evidence: TemporalFact[] };
@@ -22,6 +22,8 @@ export function resolveFactAtTime(candidates: TemporalFact[], requestedTime: str
 
 export function classifyQuestion(question: string): QueryKind {
   const normalized = question.toLowerCase();
+  if (/headcount|employees|people.*team/.test(normalized) && /june|historical|previous|used to|before july/.test(normalized)) return "historical_headcount";
+  if (/headcount|employees|people.*team/.test(normalized)) return "current_headcount";
   if (/(hire|hiring|engineer).*(launch)|launch.*(hire|hiring|engineer)/.test(normalized)) return "multi";
   if (/launch/.test(normalized) && /june|historical|previous|original|use(?:d)? to|was our|before july/.test(normalized)) return "historical";
   if (/launch region|which countr|where.*launch/.test(normalized)) return "stable_region";
@@ -34,7 +36,10 @@ export function classifyQuestion(question: string): QueryKind {
 }
 
 export function cypherFor(kind: QueryKind) {
-  if (kind === "current" || kind === "historical") return "MATCH (f:Fact {app_id: 'klazz-demo', fact_key: 'launch_date'}) RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status ORDER BY f.event_time ASC";
+  if (kind === "current" || kind === "historical" || kind === "current_headcount" || kind === "historical_headcount") {
+    const factKey = kind.includes("headcount") ? "headcount" : "launch_date";
+    return `MATCH (f:Fact {app_id: 'klazz-demo', fact_key: '${factKey}'}) RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status ORDER BY f.event_time ASC`;
+  }
   if (kind === "multi") return "MATCH (hire:Constraint {app_id: 'klazz-demo', fact_key: 'engineering_hire'})-[:DEPENDS_ON]->(burn:Fact) RETURN hire.fact_value AS hire_value, hire.session_id AS hire_session, hire.event_time AS hire_time, burn.fact_value AS burn_value, burn.session_id AS burn_session, burn.event_time AS burn_time";
   const stableKeys: Partial<Record<QueryKind,string>> = { stable_name:"company_name", stable_customer:"ideal_customer", stable_price:"base_price", stable_region:"launch_region", stable_platform:"primary_platform" };
   if (stableKeys[kind]) return `MATCH (f:Fact {app_id: 'klazz-demo', fact_key: '${stableKeys[kind]}', status: 'active'}) RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status`;
@@ -70,12 +75,13 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
   const rows = (hydra.rows ?? []).map(row => rowObject(hydra, row));
   const verification = { database: "HydraDB OS · graph default", queryId: hydra.query_id ?? null, readEpoch: hydra.read_epoch ?? null, bookmark: hydra.bookmark ?? null };
   if (!rows.length) return { state: "abstain", answer: ABSTENTION, temporalStatus: "unknown", explanation: "No HydraDB fact matched this question, so Klazz stopped before generation.", evidence: [], path: [], verification };
-  if (kind === "historical") {
-    const candidates = rows.map(row => ({ factKey:"launch_date", sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
+  if (kind === "historical" || kind === "historical_headcount") {
+    const factKey = kind.includes("headcount") ? "headcount" : "launch_date";
+    const candidates = rows.map(row => ({ factKey, sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
     const resolution = resolveFactAtTime(candidates,"2026-06-30T23:59:59Z");
     if (resolution.status === "not_found") return { state:"abstain", answer:ABSTENTION, temporalStatus:"unknown", explanation:"No launch state existed at the requested time.", evidence:[], path:[], verification };
     const selected = resolution.selectedFact!;
-    return { state: "answer", answer:selected.value, temporalStatus: "historical", explanation: "This was the launch state recorded at the end of June.", evidence: [selected], path: [selected.value], verification };
+    return { state: "answer", answer:selected.value, temporalStatus: "historical", explanation: `This was the ${factKey.replace("_"," ")} state recorded at the end of June.`, evidence: [selected], path: [selected.value], verification };
   }
   if (kind === "multi") {
     const row = rows[0];
@@ -91,7 +97,8 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
     const row = rows[0];
     return { state: "answer", answer: String(row.value), temporalStatus: "current", explanation: "This stable company fact was retrieved from HydraDB.", evidence: [{ sessionId: String(row.session_id), eventTime: String(row.event_time), value: String(row.value), status: "active" }], path: [String(row.value)], verification };
   }
-  const candidates = rows.map(row => ({ factKey:"launch_date", sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
+  const factKey = kind === "current_headcount" ? "headcount" : "launch_date";
+  const candidates = rows.map(row => ({ factKey, sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
   const resolution = resolveFactAtTime(candidates);
   if (resolution.status === "conflict") return { state:"conflict", answer:"The recorded company memories conflict, so Klazz did not select a current answer.", temporalStatus:"unknown", explanation:"Multiple active launch states require explicit resolution.", evidence:resolution.evidence, path:[], verification };
   if (resolution.status === "not_found") return { state:"abstain", answer:ABSTENTION, temporalStatus:"unknown", explanation:"No active launch state was found.", evidence:resolution.evidence, path:[], verification };

@@ -10,6 +10,8 @@ test("routes current, historical, and absent questions deterministically", () =>
   assert.equal(classifyQuestion("Why can’t we hire another engineer before launch?"), "multi");
   assert.equal(classifyQuestion("What is our company name?"), "stable_name");
   assert.equal(classifyQuestion("Which countries are we launching in?"), "stable_region");
+  assert.equal(classifyQuestion("What is our current headcount?"), "current_headcount");
+  assert.equal(classifyQuestion("What was our headcount in June?"), "historical_headcount");
 });
 
 test("a zero-row HydraDB response remains empty through combination", () => {
