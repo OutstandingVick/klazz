@@ -15,3 +15,11 @@
 - Result: 40/40 passed
 - Abstention: 6/6 passed
 - Categories: stable, current, historical, multi-session, abstention
+
+## Step 3 — Generic temporal resolver
+
+- Status: complete
+- Contract: `resolved | conflict | not_found`
+- Live current and historical answers now pass through the resolver
+- Multiple active facts produce a conflict rather than an arbitrary answer
+- Validation: 10/10 HTTP tests and 40/40 local benchmark

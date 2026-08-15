@@ -1,11 +1,24 @@
 export type QueryKind = "current" | "historical" | "multi" | "stable_name" | "stable_customer" | "stable_price" | "stable_region" | "stable_platform" | "unknown";
 export type Evidence = { sessionId: string; eventTime: string; value: string; status: "active" | "superseded" };
+export type TemporalFact = Evidence & { factKey: string };
+export type Resolution = { status: "resolved" | "conflict" | "not_found"; selectedFact?: TemporalFact; supersededFacts?: TemporalFact[]; evidence: TemporalFact[] };
 export type AskResult = {
-  state: "answer" | "abstain"; answer: string; temporalStatus: "current" | "historical" | "unknown";
+  state: "answer" | "abstain" | "conflict"; answer: string; temporalStatus: "current" | "historical" | "unknown";
   explanation: string; evidence: Evidence[]; path: string[];
   verification: { database: string; queryId: string | null; readEpoch: number | null; bookmark: string | null };
 };
 export const ABSTENTION = "I don’t have a recorded company memory that answers that yet.";
+
+export function resolveFactAtTime(candidates: TemporalFact[], requestedTime: string | null = null): Resolution {
+  const ordered = [...candidates].sort((a,b) => Date.parse(a.eventTime) - Date.parse(b.eventTime));
+  const eligible = requestedTime ? ordered.filter(fact => Date.parse(fact.eventTime) <= Date.parse(requestedTime)) : ordered;
+  if (!eligible.length) return { status:"not_found", evidence:[] };
+  if (requestedTime) return { status:"resolved", selectedFact:eligible.at(-1), supersededFacts:eligible.slice(0,-1), evidence:eligible };
+  const active = eligible.filter(fact => fact.status === "active");
+  if (active.length > 1) return { status:"conflict", evidence:eligible };
+  if (active.length === 0) return { status:"not_found", evidence:eligible };
+  return { status:"resolved", selectedFact:active[0], supersededFacts:eligible.filter(fact => fact !== active[0]), evidence:eligible };
+}
 
 export function classifyQuestion(question: string): QueryKind {
   const normalized = question.toLowerCase();
@@ -21,8 +34,7 @@ export function classifyQuestion(question: string): QueryKind {
 }
 
 export function cypherFor(kind: QueryKind) {
-  if (kind === "current") return "MATCH (current:Fact {app_id: 'klazz-demo', fact_key: 'launch_date', status: 'active'})-[:SUPERSEDES]->(old:Fact) RETURN current.fact_value AS current_value, current.session_id AS current_session, current.event_time AS current_time, old.fact_value AS previous_value, old.session_id AS previous_session, old.event_time AS previous_time";
-  if (kind === "historical") return "MATCH (f:Fact {app_id: 'klazz-demo', fact_key: 'launch_date'}) WHERE f.event_time <= '2026-06-30T23:59:59Z' RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status ORDER BY f.event_time DESC LIMIT 1";
+  if (kind === "current" || kind === "historical") return "MATCH (f:Fact {app_id: 'klazz-demo', fact_key: 'launch_date'}) RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status ORDER BY f.event_time ASC";
   if (kind === "multi") return "MATCH (hire:Constraint {app_id: 'klazz-demo', fact_key: 'engineering_hire'})-[:DEPENDS_ON]->(burn:Fact) RETURN hire.fact_value AS hire_value, hire.session_id AS hire_session, hire.event_time AS hire_time, burn.fact_value AS burn_value, burn.session_id AS burn_session, burn.event_time AS burn_time";
   const stableKeys: Partial<Record<QueryKind,string>> = { stable_name:"company_name", stable_customer:"ideal_customer", stable_price:"base_price", stable_region:"launch_region", stable_platform:"primary_platform" };
   if (stableKeys[kind]) return `MATCH (f:Fact {app_id: 'klazz-demo', fact_key: '${stableKeys[kind]}', status: 'active'}) RETURN f.fact_value AS value, f.session_id AS session_id, f.event_time AS event_time, f.status AS status`;
@@ -39,6 +51,7 @@ export function cyphersFor(kind: QueryKind) {
 }
 
 export function combineHydraResponses(responses: HydraResponse[]): HydraResponse {
+  if (responses.length === 1) return responses[0];
   const complete = responses.every(item => (item.rows ?? []).length > 0);
   return {
     query_id: responses.map(item => item.query_id).filter(Boolean).join(","),
@@ -58,8 +71,11 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
   const verification = { database: "HydraDB OS · graph default", queryId: hydra.query_id ?? null, readEpoch: hydra.read_epoch ?? null, bookmark: hydra.bookmark ?? null };
   if (!rows.length) return { state: "abstain", answer: ABSTENTION, temporalStatus: "unknown", explanation: "No HydraDB fact matched this question, so Klazz stopped before generation.", evidence: [], path: [], verification };
   if (kind === "historical") {
-    const row = rows[0];
-    return { state: "answer", answer: String(row.value), temporalStatus: "historical", explanation: "This was the launch state recorded at the end of June.", evidence: [{ sessionId: String(row.session_id), eventTime: String(row.event_time), value: String(row.value), status: "superseded" }], path: [String(row.value)], verification };
+    const candidates = rows.map(row => ({ factKey:"launch_date", sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
+    const resolution = resolveFactAtTime(candidates,"2026-06-30T23:59:59Z");
+    if (resolution.status === "not_found") return { state:"abstain", answer:ABSTENTION, temporalStatus:"unknown", explanation:"No launch state existed at the requested time.", evidence:[], path:[], verification };
+    const selected = resolution.selectedFact!;
+    return { state: "answer", answer:selected.value, temporalStatus: "historical", explanation: "This was the launch state recorded at the end of June.", evidence: [selected], path: [selected.value], verification };
   }
   if (kind === "multi") {
     const row = rows[0];
@@ -75,6 +91,11 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
     const row = rows[0];
     return { state: "answer", answer: String(row.value), temporalStatus: "current", explanation: "This stable company fact was retrieved from HydraDB.", evidence: [{ sessionId: String(row.session_id), eventTime: String(row.event_time), value: String(row.value), status: "active" }], path: [String(row.value)], verification };
   }
-  const row = rows[0];
-  return { state: "answer", answer: String(row.current_value), temporalStatus: "current", explanation: `${row.previous_value} was superseded after the database migration delay.`, evidence: [{ sessionId: String(row.previous_session), eventTime: String(row.previous_time), value: String(row.previous_value), status: "superseded" }, { sessionId: String(row.current_session), eventTime: String(row.current_time), value: String(row.current_value), status: "active" }], path: [String(row.previous_value), "SUPERSEDES", String(row.current_value)], verification };
+  const candidates = rows.map(row => ({ factKey:"launch_date", sessionId:String(row.session_id), eventTime:String(row.event_time), value:String(row.value), status:row.status === "active" ? "active" as const : "superseded" as const }));
+  const resolution = resolveFactAtTime(candidates);
+  if (resolution.status === "conflict") return { state:"conflict", answer:"The recorded company memories conflict, so Klazz did not select a current answer.", temporalStatus:"unknown", explanation:"Multiple active launch states require explicit resolution.", evidence:resolution.evidence, path:[], verification };
+  if (resolution.status === "not_found") return { state:"abstain", answer:ABSTENTION, temporalStatus:"unknown", explanation:"No active launch state was found.", evidence:resolution.evidence, path:[], verification };
+  const selected = resolution.selectedFact!;
+  const previous = resolution.supersededFacts?.at(-1);
+  return { state:"answer", answer:selected.value, temporalStatus:"current", explanation:previous ? `${previous.value} was explicitly superseded by ${selected.value}.` : "This is the active launch state.", evidence:[...(resolution.supersededFacts ?? []),selected], path:previous ? [previous.value,"SUPERSEDES",selected.value] : [selected.value], verification };
 }

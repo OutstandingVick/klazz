@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classifyQuestion, combineHydraResponses, cyphersFor, shapeResult } from "../lib/klazz.ts";
+import { classifyQuestion, combineHydraResponses, cyphersFor, resolveFactAtTime, shapeResult } from "../lib/klazz.ts";
 
 test("routes current, historical, and absent questions deterministically", () => {
   assert.equal(classifyQuestion("When are we launching now?"), "current");
@@ -35,13 +35,20 @@ test("multi-session answers require three real HydraDB relationship queries", ()
 });
 
 test("shapes a HydraDB current-state row with provenance", () => {
-  const result = shapeResult("current", { query_id:"q-1", read_epoch:4, bookmark:"b-4", columns:["current_value","current_session","current_time","previous_value","previous_session","previous_time"], rows:[[
-    {type:"string",value:"October 3, 2026"},{type:"string",value:"s2"},{type:"string",value:"2026-07-18T15:00:00Z"},{type:"string",value:"September 12, 2026"},{type:"string",value:"s1"},{type:"string",value:"2026-06-03T10:00:00Z"}
-  ]] });
+  const result = shapeResult("current", { query_id:"q-1", read_epoch:4, bookmark:"b-4", columns:["value","session_id","event_time","status"], rows:[
+    [{type:"string",value:"September 12, 2026"},{type:"string",value:"s1"},{type:"string",value:"2026-06-03T10:00:00Z"},{type:"string",value:"superseded"}],
+    [{type:"string",value:"October 3, 2026"},{type:"string",value:"s2"},{type:"string",value:"2026-07-18T15:00:00Z"},{type:"string",value:"active"}],
+  ] });
   assert.equal(result.answer, "October 3, 2026");
   assert.deepEqual(result.path, ["September 12, 2026", "SUPERSEDES", "October 3, 2026"]);
   assert.equal(result.evidence.length, 2);
   assert.equal(result.verification.readEpoch, 4);
+});
+
+test("generic resolver surfaces conflict and not-found states", () => {
+  const base = { factKey:"launch_date", eventTime:"2026-07-01T00:00:00Z", status:"active" };
+  assert.equal(resolveFactAtTime([{...base,sessionId:"s1",value:"A"},{...base,sessionId:"s2",value:"B"}]).status,"conflict");
+  assert.equal(resolveFactAtTime([],null).status,"not_found");
 });
 
 test("empty HydraDB rows produce canonical abstention", () => {
