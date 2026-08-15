@@ -1,11 +1,37 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classifyQuestion, shapeResult } from "../lib/klazz.ts";
+import { classifyQuestion, combineHydraResponses, cyphersFor, shapeResult } from "../lib/klazz.ts";
 
 test("routes current, historical, and absent questions deterministically", () => {
   assert.equal(classifyQuestion("When are we launching now?"), "current");
   assert.equal(classifyQuestion("What was our launch date in June?"), "historical");
   assert.equal(classifyQuestion("Who is our lawyer?"), "unknown");
+  assert.equal(classifyQuestion("What is our revenue?"), "unknown");
+  assert.equal(classifyQuestion("Why can’t we hire another engineer before launch?"), "multi");
+  assert.equal(classifyQuestion("What is our company name?"), "stable_name");
+  assert.equal(classifyQuestion("Which countries are we launching in?"), "stable_region");
+});
+
+test("a zero-row HydraDB response remains empty through combination", () => {
+  const result = combineHydraResponses([{ query_id:"q-empty", columns:["value"], rows:[] }]);
+  assert.deepEqual(result.rows, []);
+  assert.equal(shapeResult("unknown", result).state, "abstain");
+});
+
+test("multi-session answers require three real HydraDB relationship queries", () => {
+  assert.equal(cyphersFor("multi").length, 3);
+  const hydra = combineHydraResponses([
+    { query_id:"q1", read_epoch:7, columns:["hire_value","hire_session","hire_time","burn_value","burn_session","burn_time"], rows:[[
+      {type:"string",value:"Do not hire another engineer before launch"},{type:"string",value:"s1"},{type:"string",value:"2026-07-22"},{type:"string",value:"Burn exceeds $92,000"},{type:"string",value:"s2"},{type:"string",value:"2026-07-20"}
+    ]]},
+    { query_id:"q2", read_epoch:7, columns:["runway_value","runway_session","runway_time"], rows:[[{type:"string",value:"Runway below nine months"},{type:"string",value:"s3"},{type:"string",value:"2026-07-21"}]]},
+    { query_id:"q3", read_epoch:7, columns:["board_value","board_session","board_time"], rows:[[{type:"string",value:"Board approval required"},{type:"string",value:"s4"},{type:"string",value:"2026-07-23"}]]},
+  ]);
+  const result = shapeResult("multi", hydra);
+  assert.equal(result.state, "answer");
+  assert.equal(result.evidence.length, 4);
+  assert.deepEqual(result.path.filter((_, index) => index % 2 === 1), ["DEPENDS_ON","REDUCES","REQUIRES"]);
+  assert.equal(result.verification.queryId, "q1,q2,q3");
 });
 
 test("shapes a HydraDB current-state row with provenance", () => {

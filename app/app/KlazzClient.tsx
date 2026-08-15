@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useState } from "react";
 import type { AskResult } from "../lib/klazz";
-const prompts = ["When are we launching now?", "What was our launch date in June?", "Who is our lawyer?"];
+const prompts = ["When are we launching now?", "What was our launch date in June?", "Why can’t we hire another engineer before launch?", "Who is our lawyer?"];
 
 export default function KlazzClient() {
   const [question, setQuestion] = useState(prompts[0]);
@@ -28,6 +28,7 @@ export default function KlazzClient() {
       {!result && !error && <section className="emptyCard"><span>01</span><div><strong>Ask one question to begin</strong><p>Klazz will query HydraDB and show the supporting company memory here.</p></div></section>}
       {result && <section className={`answerCard ${result.state === "abstain" ? "abstainCard" : ""}`} aria-live="polite"><div className="answerHead"><span className="stateBadge">{result.temporalStatus === "current" ? "Current state" : result.temporalStatus === "historical" ? "Historical state" : "No supported memory"}</span><span className="verified">Verified from HydraDB</span></div><h2>{result.answer}</h2><p>{result.explanation}</p>
         {result.path.length === 3 && <div className="timeline"><div><small>{result.evidence[0].eventTime.slice(0,10)}</small><strong>{result.path[0]}</strong><span>Superseded plan</span></div><div className="edge"><span>{result.path[1]}</span></div><div className="activeNode"><small>{result.evidence[1].eventTime.slice(0,10)}</small><strong>{result.path[2]}</strong><span>Current plan</span></div></div>}
+        {result.path.length > 3 && <div className="dependencyPath" aria-label="HydraDB dependency path">{result.path.map((item,index) => index % 2 === 0 ? <strong key={`${item}-${index}`}>{item}</strong> : <span key={`${item}-${index}`}>{item}</span>)}</div>}
         {result.evidence.length > 0 && <div className="sourceLine"><span>{result.evidence.length}</span> company {result.evidence.length === 1 ? "memory" : "memories"} used <button type="button" onClick={() => setEvidenceOpen(value => !value)}>{evidenceOpen ? "Hide evidence" : "View evidence"}</button></div>}
         {evidenceOpen && result.evidence.length > 0 && <div className="evidenceGrid">{result.evidence.map(item => <article key={item.sessionId}><div><span className={`evidenceState ${item.status}`}>{item.status}</span><time>{item.eventTime.slice(0,10)}</time></div><strong>{item.value}</strong><code>{item.sessionId}</code></article>)}</div>}
         <footer className="verification">Query {result.verification.queryId ?? "—"} · read epoch {result.verification.readEpoch ?? "—"}</footer></section>}

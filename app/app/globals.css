@@ -40,6 +40,9 @@ h1 { margin:0; color:var(--navy); font-weight:800; letter-spacing:-.05em; font-s
 .timeline strong { color:var(--navy); margin:5px 0 3px; font-size:21px; }
 .timeline div span { color:var(--muted); font-size:12px; }
 .timeline .activeNode { border-color:var(--mid)!important; box-shadow:0 0 0 3px rgba(202,220,252,.7); }
+.dependencyPath { margin:27px 0 20px; display:flex; align-items:center; gap:8px; overflow-x:auto; padding:4px 4px 12px; }
+.dependencyPath strong { min-width:170px; padding:13px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--navy); font-size:13px; line-height:1.4; }
+.dependencyPath span { flex:0 0 auto; color:var(--navy); font:700 9px var(--font-geist-mono),monospace; letter-spacing:.06em; }
 .edge { text-align:center; position:relative; }
 .edge:before { content:""; display:block; height:1px; background:#9aa39d; }
 .edge span { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:var(--card); padding:0 8px; font-size:9px!important; letter-spacing:.08em; }
@@ -72,6 +75,9 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
   .edge { height:42px; }
   .edge:before { width:1px; height:42px; margin:0 auto; }
   .edge span { white-space:nowrap; }
+  .dependencyPath { align-items:stretch; flex-direction:column; overflow:visible; }
+  .dependencyPath strong { min-width:0; }
+  .dependencyPath span { align-self:center; }
 }
 @media (max-width:720px) {
   body { background-attachment:scroll; }

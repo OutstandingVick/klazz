@@ -21,9 +21,10 @@ Run the unit and HTTP journey tests with:
 cd app
 npm test
 KLAZZ_TEST_URL=http://localhost:3000 npm test
+KLAZZ_TEST_URL=http://localhost:3000 npm run evaluate
 ```
 
-The hosted application requires `HYDRADB_URL` and `HYDRADB_TOKEN` as runtime environment variables. It never falls back to mocked company data when HydraDB is unavailable.
+The evaluation command runs 40 stable, current, historical, multi-session, and abstention questions through the same HTTP route used by the UI. The hosted application requires `HYDRADB_URL` and `HYDRADB_TOKEN` as runtime environment variables. It never falls back to mocked company data when HydraDB is unavailable.
 
 ## HydraDB proof
 

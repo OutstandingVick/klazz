@@ -5,6 +5,8 @@ const base = process.env.KLAZZ_TEST_URL;
 const cases = [
   ["When are we launching now?", "answer", "October 3, 2026"],
   ["What was our launch date in June?", "answer", "September 12, 2026"],
+  ["Why can’t we hire another engineer before launch?", "answer", "Do not hire another engineer before launch"],
+  ["What is our revenue?", "abstain", "I don’t have a recorded company memory that answers that yet."],
   ["Who is our lawyer?", "abstain", "I don’t have a recorded company memory that answers that yet."]
 ];
 
@@ -14,7 +16,7 @@ test("real HTTP journey reaches HydraDB for every golden query", { skip: !base }
     assert.equal(response.status, 200);
     const body = await response.json();
     assert.equal(body.state, state);
-    assert.equal(body.answer, answer);
+    assert.ok(body.answer.includes(answer));
     assert.match(body.verification.database, /HydraDB/);
     assert.ok(body.verification.queryId);
   }
