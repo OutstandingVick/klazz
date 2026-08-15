@@ -52,3 +52,11 @@
 - Decision: deterministic formatting; no LLM in the hackathon MVP
 - Guardrail: answer formatting only follows non-empty resolved HydraDB evidence
 - PRD amendment: `PRD_AMENDMENTS.md` A-01
+
+## Step 8 — Independent result verification
+
+- Status: complete
+- Command: `npm run verify -- "<question>"`
+- Verification: public application evidence is compared with direct strong-consistency HydraDB rows
+- Receipt: JSON includes app/direct query IDs, read epochs, evidence, and match result
+- Explorer limitation: HydraDB OS exposes query IDs but no public explorer URL

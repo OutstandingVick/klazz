@@ -26,11 +26,14 @@ cd app
 npm test
 KLAZZ_TEST_URL=http://localhost:3000 npm test
 KLAZZ_TEST_URL=http://localhost:3000 npm run evaluate
+KLAZZ_TEST_URL=http://localhost:3000 HYDRADB_URL=http://127.0.0.1:18443 HYDRADB_TOKEN=... npm run verify -- "When are we launching now?"
 ```
 
 The evaluation command runs 40 stable, current, historical, multi-session, and abstention questions through the same HTTP route used by the UI. The hosted application requires `HYDRADB_URL` and `HYDRADB_TOKEN` as runtime environment variables. It never falls back to mocked company data when HydraDB is unavailable.
 
 `seed:reset` removes only nodes labeled `Fact`, `Constraint`, or `Session` with `app_id: 'klazz-demo'`, then recreates the deterministic 40-record corpus. Every seed waits for a successful strong query before writing.
+
+The verification command independently compares the application evidence with direct strong-consistency HydraDB rows and emits a JSON receipt containing both query-ID sets and read epochs. HydraDB OS does not provide a public explorer URL for these query IDs.
 
 ## HydraDB proof
 

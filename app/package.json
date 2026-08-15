@@ -15,6 +15,7 @@
     "test:outage": "node scripts/test-outage.mjs",
     "test": "node --test tests/*.test.mjs",
     "evaluate": "node scripts/evaluate.mjs",
+    "verify": "node scripts/verify-result.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },
