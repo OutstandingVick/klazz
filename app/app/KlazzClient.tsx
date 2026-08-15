@@ -20,7 +20,7 @@ export default function KlazzClient() {
   }
   function submit(event: FormEvent) { event.preventDefault(); void ask(); }
   return <main className="shell">
-    <header className="topbar"><div className="brandMark">K</div><div><strong>Klazz</strong><span>Institutional Memory for AI Executives</span></div><div className="systemStatus"><i /> HydraDB-backed</div></header>
+    <header className="topbar"><img className="brandMark" src="/klazz-mark.svg" alt="" /><div><strong>Klazz</strong><span>Institutional Memory for AI Executives</span></div><div className="systemStatus"><i /> HydraDB-backed</div></header>
     <section className="workspace">
       <div className="intro"><p className="eyebrow">Lumen Labs · Company memory</p><h1>Ask what changed.<br />Know what’s still true.</h1><p className="lede">Klazz traces company decisions across time, resolves what superseded what, and shows the evidence behind every answer.</p></div>
       <form className="askCard" onSubmit={submit}><label htmlFor="question">Ask about the company</label><div className="questionRow"><input id="question" value={question} onChange={event => setQuestion(event.target.value)} disabled={loading} aria-label="Company question" /><button disabled={loading || question.trim().length < 3}>{loading ? "Checking memory…" : <>Ask Klazz <span>→</span></>}</button></div><div className="promptRow"><span>Try</span>{prompts.slice(1).map(prompt => <button type="button" key={prompt} onClick={() => void ask(prompt)} disabled={loading}>{prompt}</button>)}</div></form>

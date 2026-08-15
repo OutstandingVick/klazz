@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Klazz Node Mark">
+  <rect x="80" y="80" width="80" height="80" rx="8" fill="#8AB6F9" opacity="0.35" transform="rotate(45 120 120)"/>
+  <line x1="80" y1="55" x2="80" y2="185" stroke="#00246B" stroke-width="26" stroke-linecap="square"/>
+  <line x1="80" y1="120" x2="160" y2="55" stroke="#00246B" stroke-width="26" stroke-linecap="round"/>
+  <line x1="80" y1="120" x2="160" y2="185" stroke="#00246B" stroke-width="26" stroke-linecap="round"/>
+  <rect x="73" y="113" width="14" height="14" fill="#CADCFC" transform="rotate(45 80 120)"/>
+  <rect x="155" y="50" width="10" height="10" fill="#CADCFC" transform="rotate(45 160 55)"/>
+  <rect x="155" y="180" width="10" height="10" fill="#CADCFC" transform="rotate(45 160 185)"/>
+</svg>
