@@ -45,3 +45,10 @@
 - Before outage: HTTP 200 with HydraDB query ID
 - Paused HydraDB: HTTP 503, retryable, explicit no-fallback message
 - Unpaused HydraDB: HTTP 200 with a new query ID and the original answer
+
+## Step 7 — Evidence-constrained wording decision
+
+- Status: complete
+- Decision: deterministic formatting; no LLM in the hackathon MVP
+- Guardrail: answer formatting only follows non-empty resolved HydraDB evidence
+- PRD amendment: `PRD_AMENDMENTS.md` A-01

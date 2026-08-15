@@ -2,6 +2,8 @@
 
 Klazz is an end-to-end company-memory demo for founders. A user can ask for the current launch date, ask what the team believed before a historical cutoff, or ask about an unknown fact. The application answers only from a real HydraDB OS graph and exposes supporting records, the graph path, query ID, and read epoch.
 
+The hackathon MVP intentionally uses deterministic evidence-to-text formatting rather than an LLM. See `PRD_AMENDMENTS.md` for the accepted architecture amendment.
+
 The production web application lives in `app/`; the root scripts preserve the original HydraDB feasibility proof and raw-runtime tests.
 
 ## Run the application
