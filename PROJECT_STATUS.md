@@ -60,3 +60,12 @@
 - Verification: public application evidence is compared with direct strong-consistency HydraDB rows
 - Receipt: JSON includes app/direct query IDs, read epochs, evidence, and match result
 - Explorer limitation: HydraDB OS exposes query IDs but no public explorer URL
+
+## Final deployed integration check
+
+- Sites version: 6
+- Access: public
+- Production HTTP tests: 11/11 passed
+- Production benchmark: 40/40 passed
+- Production corpus: 40 records with three mutable fact families
+- URL: `https://klazz-company-memory.outstandingvick.chatgpt.site`
