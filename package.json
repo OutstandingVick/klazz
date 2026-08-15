@@ -1,0 +1,11 @@
+{
+  "name": "klazz-hydradb-spike",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test spike.test.mjs",
+    "os-spike": "node os-spike.mjs",
+    "failure": "node hosted-api-probe.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

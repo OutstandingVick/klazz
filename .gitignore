@@ -1,0 +1,5 @@
+.env
+hydradb-auth-token
+evidence/*.json
+!evidence/.gitkeep
+hydradb-data/
