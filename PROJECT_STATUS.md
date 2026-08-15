@@ -38,3 +38,10 @@
 - Reset scope: only Klazz demo `Fact`, `Constraint`, and `Session` nodes
 - Clean reset result: 40 records
 - Idempotence: two consecutive seeds produce identical counts and golden rows
+
+## Step 6 — Automated outage and recovery
+
+- Status: complete
+- Before outage: HTTP 200 with HydraDB query ID
+- Paused HydraDB: HTTP 503, retryable, explicit no-fallback message
+- Unpaused HydraDB: HTTP 200 with a new query ID and the original answer

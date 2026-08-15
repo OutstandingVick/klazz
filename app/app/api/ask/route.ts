@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }));
     return Response.json(shapeResult(kind, combineHydraResponses(bodies)));
   } catch (error) {
-    const message = error instanceof DOMException && error.name === "AbortError" ? "Company memory took too long to respond. Please retry." : "Company memory is temporarily unavailable. Your question was not answered from a fallback.";
+    const message = error instanceof DOMException && error.name === "AbortError" ? "Company memory took too long to respond. No fallback answer was used; please retry." : "Company memory is temporarily unavailable. Your question was not answered from a fallback.";
     return Response.json({ state: "error", message, retryable: true }, { status: 503 });
   } finally { clearTimeout(timeout); }
 }

@@ -12,6 +12,7 @@
     "seed": "node scripts/seed-hydra.mjs",
     "seed:reset": "node scripts/seed-hydra.mjs --reset",
     "test:seed": "node --test tests/seed.test.mjs",
+    "test:outage": "node scripts/test-outage.mjs",
     "test": "node --test tests/*.test.mjs",
     "evaluate": "node scripts/evaluate.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
