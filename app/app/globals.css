@@ -1,7 +1,7 @@
 @import "tailwindcss";
 :root { --navy:#00246b; --mid:#8ab6f9; --light:#cadcfc; --ink:#0b1230; --muted:#4a5578; --paper:#f7f9ff; --card:#ffffff; --line:#e2e9fa; }
 * { box-sizing:border-box; }
-body { margin:0; background:radial-gradient(circle at 88% 2%,rgba(138,182,249,.24),transparent 29%),var(--paper); color:var(--ink); font-family:var(--font-geist-sans),Arial,Helvetica,sans-serif; }
+body { margin:0; background:linear-gradient(145deg,#cadcfc 0%,#8ab6f9 55%,#00246b 100%) fixed; color:var(--ink); font-family:var(--font-geist-sans),Arial,Helvetica,sans-serif; }
 button,input { font:inherit; }
 .shell { min-height:100vh; }
 .topbar { height:76px; display:flex; align-items:center; gap:13px; padding:0 5vw; border-bottom:1px solid var(--line); background:rgba(255,255,255,.86); backdrop-filter:blur(14px); }
