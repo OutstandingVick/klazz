@@ -12,6 +12,25 @@ async function query(cypher) {
   return body;
 }
 
+async function waitForReady() {
+  let lastError;
+  for (let attempt = 1; attempt <= 30; attempt++) {
+    try {
+      await query("MATCH (f:Fact {app_id: '__readiness__'}) RETURN f.id AS id");
+      return attempt;
+    } catch (error) {
+      lastError = error;
+      await new Promise(resolve => setTimeout(resolve, 1_000));
+    }
+  }
+  throw new Error(`HydraDB query engine did not become ready: ${lastError?.message}`);
+}
+
+const readyAttempts = await waitForReady();
+if (process.argv.includes("--reset")) {
+  for (const label of ["Fact","Constraint","Session"]) await query(`MATCH (n:${label} {app_id: 'klazz-demo'}) DETACH DELETE n`);
+}
+
 const q = value => `'${String(value).replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`;
 async function exists(id, label = "Fact") {
   const result = await query(`MATCH (n:${label} {id: ${id}}) RETURN n.id AS id`);
@@ -84,4 +103,4 @@ const multi = await Promise.all([
   query("MATCH (runway:Fact {app_id: 'klazz-demo', fact_key: 'runway_link'})-[:REQUIRES]->(board:Constraint) RETURN board.fact_value"),
 ]);
 if (multi.some(result => (result.rows ?? []).length !== 1)) throw new Error(`Expected all three Klazz hiring dependency relationships; got ${multi.map(result => (result.rows ?? []).length).join(",")}`);
-console.log(JSON.stringify({ seeded: true, query_id: verify.query_id, read_epoch: verify.read_epoch, session_count: counts.reduce((total, result) => total + (result.rows ?? []).length, 0), dependency_queries: multi.map(result => result.query_id), rows: verify.rows }, null, 2));
+console.log(JSON.stringify({ seeded: true, ready_attempts: readyAttempts, reset:process.argv.includes("--reset"), query_id: verify.query_id, read_epoch: verify.read_epoch, session_count: counts.reduce((total, result) => total + (result.rows ?? []).length, 0), dependency_queries: multi.map(result => result.query_id), rows: verify.rows }, null, 2));

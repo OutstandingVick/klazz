@@ -12,6 +12,8 @@ Start HydraDB on ports `18443`, `17687`, and `19090`, then configure `app/.env.l
 cd app
 npm install
 npm run seed
+npm run seed:reset
+npm run test:seed
 npm run dev
 ```
 
@@ -25,6 +27,8 @@ KLAZZ_TEST_URL=http://localhost:3000 npm run evaluate
 ```
 
 The evaluation command runs 40 stable, current, historical, multi-session, and abstention questions through the same HTTP route used by the UI. The hosted application requires `HYDRADB_URL` and `HYDRADB_TOKEN` as runtime environment variables. It never falls back to mocked company data when HydraDB is unavailable.
+
+`seed:reset` removes only nodes labeled `Fact`, `Constraint`, or `Session` with `app_id: 'klazz-demo'`, then recreates the deterministic 40-record corpus. Every seed waits for a successful strong query before writing.
 
 ## HydraDB proof
 

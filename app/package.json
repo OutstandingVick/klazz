@@ -10,6 +10,8 @@
     "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "seed": "node scripts/seed-hydra.mjs",
+    "seed:reset": "node scripts/seed-hydra.mjs --reset",
+    "test:seed": "node --test tests/seed.test.mjs",
     "test": "node --test tests/*.test.mjs",
     "evaluate": "node scripts/evaluate.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",

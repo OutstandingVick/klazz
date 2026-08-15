@@ -30,3 +30,11 @@
 - Added headcount history: 8 employees in June → 10 employees currently
 - Storage: real HydraDB `SUPERSEDES` relationship
 - Both historical and current headcount queries pass through `/api/ask`
+
+## Step 5 — Seed readiness, reset, and idempotence
+
+- Status: complete
+- Readiness: seed waits for the HydraDB query engine
+- Reset scope: only Klazz demo `Fact`, `Constraint`, and `Session` nodes
+- Clean reset result: 40 records
+- Idempotence: two consecutive seeds produce identical counts and golden rows
