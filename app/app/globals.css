@@ -452,3 +452,729 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
     transition: none;
   }
 }
+
+/* ============================================================
+   Klazz landing — Section 2 (The Problem)
+   Editorial information architecture — rows, columns, rules,
+   statuses. Pale canvas #F7F9FE, navy ink, no cards.
+   ============================================================ */
+
+.landing-problem {
+  position: relative;
+  background: #f7f9fe;
+  color: #00246B;
+  padding: clamp(5rem, 9vw, 8rem) 0 clamp(5rem, 8vw, 7rem);
+  overflow: hidden;
+  min-height: 850px;
+}
+
+.landing-problem > * {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.5rem, 5vw, 4.5rem);
+  padding-right: clamp(1.5rem, 5vw, 4.5rem);
+}
+
+/* --- Top row: headline (left) / short intro (right) --- */
+.landing-problem-top {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+}
+.landing-problem-eyebrow {
+  margin: 0 0 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-problem-title {
+  margin: 0;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: #00246B;
+  max-width: 600px;
+}
+.landing-problem-title span {
+  display: block;
+}
+.landing-problem-title span:last-child {
+  font-weight: 760;
+  letter-spacing: -0.04em;
+}
+.landing-problem-intro {
+  margin: 0;
+  max-width: 26rem;
+  justify-self: end;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.55;
+  color: #3a4a75;
+  border-left: 1px solid rgba(138, 182, 249, 0.5);
+  padding-left: 1.4rem;
+}
+
+/* --- Main timeline grid: PREVIOUS | CHANGE | CURRENT --- */
+.landing-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+.landing-problem-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 2.2rem clamp(1.25rem, 2.5vw, 2.5rem);
+  border-top: 1px solid rgba(138, 182, 249, 0.4);
+}
+.landing-problem-grid > .landing-problem-col + .landing-problem-col {
+  border-left: 1px solid rgba(138, 182, 249, 0.4);
+}
+
+.landing-problem-meta {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-problem-meta--dim {
+  color: #aab6d8;
+}
+.landing-problem-value {
+  font-size: clamp(2.4rem, 4.4vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: rgba(0, 36, 107, 0.55);
+}
+.landing-problem-value--current {
+  color: #00246B;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 5vw, 5.6rem);
+}
+.landing-problem-support {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #44578a;
+}
+.landing-problem-status {
+  margin-top: auto;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-problem-status--current {
+  color: #00246B;
+  background: #CADCFC;
+  padding: 0.4rem 0.75rem;
+  border-radius: 2px;
+  letter-spacing: 0.2em;
+}
+
+/* Change column — the transition point */
+.landing-problem-col--change {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.landing-problem-change-main {
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  font-weight: 650;
+  color: #00246B;
+}
+.landing-problem-change-orb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #f2f7ff, #8AB6F9 45%, #00246B 90%);
+  box-shadow: 0 0 0 5px rgba(138, 182, 249, 0.18);
+  margin-bottom: 0.4rem;
+}
+
+/* --- Connector rule spanning the timeline --- */
+.landing-problem-rule {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0 0;
+}
+.landing-problem-rule-line {
+  height: 1px;
+  background: #CADCFC;
+}
+.landing-problem-rule-orb {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8AB6F9;
+}
+.landing-problem-rule-arrow {
+  color: #8AB6F9;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* --- Secondary examples row --- */
+.landing-problem-examples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: clamp(3.5rem, 6vw, 5rem);
+  position: relative;
+}
+.landing-problem-examples-head {
+  grid-column: 1 / -1;
+  margin: 0 0 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-problem-example {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.6rem clamp(1.25rem, 2.5vw, 2.5rem);
+  border-top: 1px solid rgba(138, 182, 249, 0.4);
+}
+.landing-problem-example + .landing-problem-example {
+  border-left: 1px solid rgba(138, 182, 249, 0.4);
+}
+.landing-problem-example-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-problem-example-flow {
+  font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #00246B;
+}
+.landing-problem-example-caption {
+  font-size: 0.82rem;
+  color: #44578a;
+}
+
+/* --- Bottom insight --- */
+.landing-problem-insight {
+  margin-top: clamp(4rem, 7vw, 6rem);
+  padding-top: 2.2rem;
+  border-top: 1px solid #00246B;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.landing-problem-insight-tag {
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-weight: 760;
+  letter-spacing: -0.02em;
+  color: #00246B;
+}
+.landing-problem-insight-body {
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.5;
+  color: #3a4a75;
+  max-width: 26rem;
+}
+.landing-problem-insight-accent {
+  grid-column: 2;
+  margin-top: 0.6rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #8AB6F9;
+}
+
+/* --- Reveal (armed via JS --prep, fired via --in) --- */
+.landing-problem .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-problem--prep .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.landing-problem--in .reveal {
+  opacity: 1;
+  transform: none;
+}
+.landing-problem--prep .reveal-1 { transition-delay: 0.05s; }
+.landing-problem--prep .reveal-2 { transition-delay: 0.12s; }
+.landing-problem--prep .reveal-3 { transition-delay: 0.2s; }
+.landing-problem--prep .reveal-4 { transition-delay: 0.3s; }
+.landing-problem--prep .reveal-5 { transition-delay: 0.42s; }
+.landing-problem--prep .reveal-6 { transition-delay: 0.54s; }
+.landing-problem--prep .reveal-7 { transition-delay: 0.66s; }
+.landing-problem--prep .reveal-8 { transition-delay: 0.8s; }
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .landing-problem-top {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1.8rem;
+  }
+  .landing-problem-intro {
+    justify-self: start;
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(138, 182, 249, 0.4);
+    padding-top: 1.2rem;
+  }
+  .landing-problem-value {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+  }
+  .landing-problem-value--current {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+  }
+  .landing-problem-insight {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .landing-problem-insight-accent {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-problem {
+    padding: 4.5rem 0 4rem;
+    min-height: 0;
+  }
+  /* Main timeline stacks into rows */
+  .landing-problem-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .landing-problem-grid > .landing-problem-col + .landing-problem-col {
+    border-left: none;
+    border-top: 1px solid rgba(138, 182, 249, 0.4);
+  }
+  .landing-problem-col {
+    align-items: flex-start;
+    text-align: left;
+    padding: 1.6rem 0;
+  }
+  .landing-problem-col--change {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .landing-problem-change-orb {
+    margin-bottom: 0;
+  }
+  /* Connector becomes vertical between stacked rows */
+  .landing-problem-rule {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0;
+    height: 3.5rem;
+    padding-left: 0.4rem;
+  }
+  .landing-problem-rule-line {
+    width: 1px;
+    height: 100%;
+    background: #CADCFC;
+  }
+  .landing-problem-rule-line:first-child,
+  .landing-problem-rule-orb,
+  .landing-problem-rule-arrow {
+    display: none;
+  }
+  .landing-problem-rule-line:nth-child(3) {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    margin: 0 auto;
+    width: 1px;
+  }
+  .landing-problem-rule-line:nth-child(2) {
+    grid-row: 1 / 2;
+    grid-column: 1;
+    display: none;
+  }
+  /* Secondary examples stack */
+  .landing-problem-examples {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .landing-problem-examples-head {
+    grid-column: 1;
+  }
+  .landing-problem-example + .landing-problem-example {
+    border-left: none;
+    border-top: 1px solid rgba(138, 182, 249, 0.4);
+  }
+  .landing-problem-insight {
+    margin-top: 3.5rem;
+    padding-top: 1.8rem;
+  }
+  .landing-problem-insight-tag {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- Reduced motion for Section 2 --- */
+@media (prefers-reduced-motion: reduce) {
+  .landing-problem .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   Klazz landing — Section 3 (How Klazz Thinks)
+   A continuous reasoning sequence: REMEMBER → CONNECT →
+   RESOLVE → KNOW WHEN NOT TO ANSWER. Deep navy canvas returns.
+   ============================================================ */
+
+.landing-think {
+  position: relative;
+  background:
+    radial-gradient(80% 60% at 12% 0%, rgba(138, 182, 249, 0.14) 0%, rgba(138, 182, 249, 0) 55%),
+    #00246B;
+  color: #eef3ff;
+  padding: clamp(6rem, 11vw, 10rem) 0 clamp(5rem, 9vw, 8rem);
+  overflow: hidden;
+}
+
+.landing-think-top {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+
+.landing-think-eyebrow {
+  margin: 0 0 1.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+
+.landing-think-title {
+  margin: 0 0 2rem;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: #eef3ff;
+  max-width: 720px;
+}
+.landing-think-title span {
+  display: block;
+}
+.landing-think-title span:last-child {
+  font-weight: 760;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+
+.landing-think-intro {
+  margin: 0;
+  max-width: 38rem;
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  line-height: 1.6;
+  color: rgba(238, 243, 255, 0.82);
+}
+
+/* --- Continuous chrome ribbon through the sequence --- */
+.landing-think-ribbon {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: clamp(3.5rem, 6vw, 5.5rem) auto 0;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+.landing-think-ribbon svg {
+  width: 100%;
+  height: 120px;
+  display: block;
+}
+
+/* --- The four behaviors: staggered editorial pipeline --- */
+.landing-think-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  align-items: start;
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+  position: relative;
+}
+
+.landing-think-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(202, 220, 252, 0.25);
+}
+/* Staggered vertical offsets for editorial movement */
+.think-item-1 { margin-top: 0; }
+.think-item-2 { margin-top: 2.5rem; }
+.think-item-3 { margin-top: 0.5rem; }
+.think-item-4 { margin-top: 3rem; }
+
+.landing-think-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-think-head {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.5vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 650;
+  color: #ffffff;
+}
+.landing-think-body {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(238, 243, 255, 0.78);
+}
+
+/* RESOLVE gets the strongest treatment */
+.landing-think-item--resolve {
+  border-top-color: #CADCFC;
+  padding-top: 2rem;
+}
+.landing-think-item--resolve .landing-think-head {
+  font-weight: 760;
+}
+.landing-think-item--resolve .landing-think-label {
+  color: #CADCFC;
+}
+
+/* --- 01 REMEMBER: memory fragments --- */
+.landing-think-snippet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.tk-snip {
+  font-size: 0.82rem;
+  color: rgba(238, 243, 255, 0.72);
+  border-left: 2px solid #8AB6F9;
+  padding: 0.15rem 0 0.15rem 0.7rem;
+}
+.tk-snip b {
+  color: #CADCFC;
+  font-weight: 650;
+  margin-right: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+/* --- 02 CONNECT: thin relationship path --- */
+.landing-think-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+.tk-link-node {
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: #ffffff;
+  border: 1px solid rgba(202, 220, 252, 0.4);
+  border-radius: 3px;
+  padding: 0.35rem 0.7rem;
+  background: rgba(202, 220, 252, 0.06);
+}
+.tk-link-edge {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+  padding-left: 0.4rem;
+}
+
+/* --- 03 RESOLVE: SEP 12 superseded by OCT 3 --- */
+.landing-think-resolve {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+.tk-resolve-old b,
+.tk-resolve-new b {
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  letter-spacing: -0.02em;
+  display: block;
+}
+.tk-resolve-old b {
+  color: #8AB6F9;
+  font-weight: 600;
+}
+.tk-resolve-new b {
+  color: #ffffff;
+  font-weight: 800;
+}
+.tk-resolve-old i,
+.tk-resolve-new i {
+  font-style: normal;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.tk-resolve-old i { color: rgba(238, 243, 255, 0.6); }
+.tk-resolve-new i {
+  color: #00246B;
+  background: #CADCFC;
+  padding: 0.3rem 0.65rem;
+  border-radius: 2px;
+  font-weight: 700;
+}
+.tk-resolve-edge i {
+  font-style: normal;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+
+/* --- 04 KNOW WHEN NOT TO ANSWER --- */
+.landing-think-abstain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  border: 1px solid rgba(202, 220, 252, 0.28);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  background: rgba(202, 220, 252, 0.05);
+}
+.tk-abstain-q {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+.tk-abstain-line {
+  font-size: 0.84rem;
+  color: rgba(238, 243, 255, 0.72);
+  border-left: 2px solid #8AB6F9;
+  padding-left: 0.6rem;
+}
+.tk-abstain-halt {
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #CADCFC;
+}
+
+/* --- Closer / bridge into Section 4 --- */
+.landing-think-closer {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: clamp(4rem, 7vw, 6rem) auto 0;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+.landing-think-closer-line {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: #ffffff;
+  max-width: 40rem;
+}
+.landing-think-closer-sub {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  color: #8AB6F9;
+}
+
+/* --- Reveal (armed via JS --prep, fired via --in) --- */
+.landing-think .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-think--prep .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.landing-think--in .reveal {
+  opacity: 1;
+  transform: none;
+}
+.landing-think--prep .think-1 { transition-delay: 0.05s; }
+.landing-think--prep .think-2 { transition-delay: 0.12s; }
+.landing-think--prep .think-3 { transition-delay: 0.2s; }
+.landing-think--prep .think-4 { transition-delay: 0.3s; }
+.landing-think--prep .think-5 { transition-delay: 0.45s; }
+.landing-think--prep .think-6 { transition-delay: 0.6s; }
+.landing-think--prep .think-7 { transition-delay: 0.75s; }
+.landing-think--prep .think-8 { transition-delay: 0.9s; }
+
+/* --- Responsive --- */
+@media (max-width: 1080px) {
+  .landing-think-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 4rem;
+  }
+  .think-item-2,
+  .think-item-3,
+  .think-item-4 {
+    margin-top: 0;
+  }
+  .think-item-2 { margin-top: 1.5rem; }
+  .think-item-4 { margin-top: 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .landing-think-flow {
+    grid-template-columns: 1fr;
+    row-gap: 3.5rem;
+  }
+  .think-item-2,
+  .think-item-3,
+  .think-item-4 {
+    margin-top: 0;
+  }
+  .landing-think-ribbon svg {
+    height: 80px;
+  }
+  .landing-think-title {
+    font-size: clamp(2.3rem, 9vw, 3rem);
+  }
+}
+
+/* --- Reduced motion for Section 3 --- */
+@media (prefers-reduced-motion: reduce) {
+  .landing-think .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

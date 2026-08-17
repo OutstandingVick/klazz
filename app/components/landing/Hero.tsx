@@ -29,9 +29,9 @@ export default function Hero() {
           <p className="landing-eyebrow">Institutional memory for AI executives</p>
 
           <h1 className="landing-title">
-            <span className="landing-title-line">Your company remembers everything.</span>
+            <span className="landing-title-line">Your company changes.</span>
             <span className="landing-title-line landing-title-line--emphasis">
-              Klazz knows what&rsquo;s still true.
+              Klazz remembers what&rsquo;s still true.
             </span>
           </h1>
 
