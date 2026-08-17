@@ -2443,12 +2443,6 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
     border-left: none;
     border-top: 1px solid rgba(202, 220, 252, 0.3);
   }
-  .landing-hydra-foot {
-    flex-direction: column;
-  }
-  .landing-hydra-trace {
-    align-self: stretch;
-  }
 }
 
 /* --- Reduced motion for Section 6 --- */
