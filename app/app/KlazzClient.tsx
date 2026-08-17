@@ -20,6 +20,7 @@ export default function KlazzClient() {
   }
   function submit(event: FormEvent) { event.preventDefault(); void ask(); }
   return <main className="shell">
+    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG brand mark sized via CSS */}
     <header className="topbar"><img className="brandMark" src="/klazz-mark.svg" alt="" /><div><strong>Klazz</strong><span>Institutional Memory for AI Executives</span></div><div className="systemStatus"><i /> HydraDB-backed</div></header>
     <section className="workspace">
       <div className="intro"><p className="eyebrow">Lumen Labs · Company memory</p><h1>Ask what changed.<br />Know what’s still true.</h1><p className="lede">Klazz traces company decisions across time, resolves what superseded what, and shows the evidence behind every answer.</p></div>

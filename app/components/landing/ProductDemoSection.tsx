@@ -38,56 +38,55 @@ const DEMOS: Record<string, Demo> = {
     chip: "When are we launching now?",
     question: "When are we launching now?",
     answerLabel: "CURRENT ANSWER",
-    answer: "October 3",
+    answer: "October 3, 2026",
     supporting:
-      "The September 12 launch date was superseded after the migration delay recorded on July 27.",
+      "The September 12 launch date was superseded by October 3 on July 18.",
     temporal: {
       previous: { value: "SEP 12", label: "PREVIOUS" },
       current: { value: "OCT 3", label: "CURRENT" },
       currentLabel: "CURRENT",
     },
     evidence: [
-      { meta: "SESSION 06 · MAY 14", value: "Launch → Sep 12", caption: "Original decision", state: "PREVIOUS" },
-      { meta: "SESSION 24 · JUL 27", value: "Migration delayed", caption: "Reason for change", state: "CONTEXT" },
-      { meta: "SESSION 29 · AUG 02", value: "Launch → Oct 3", caption: "Revised decision", state: "CURRENT", tone: "current" },
+      { meta: "JUN 03 · session-2026-06-03-launch", value: "September 12, 2026", caption: "Original launch date", state: "PREVIOUS" },
+      { meta: "JUL 18 · session-2026-07-18-launch", value: "October 3, 2026", caption: "Revised launch date", state: "CURRENT", tone: "current" },
     ],
-    trace: { retrieved: "3 sessions", resolved: "1 superseded fact", result: "Current state" },
+    trace: { retrieved: "38 sessions", resolved: "1 superseded fact", result: "Current state" },
   },
   historical: {
     id: "historical",
     chip: "What was our launch date in June?",
     question: "What was our launch date in June?",
     answerLabel: "AS OF JUNE",
-    answer: "September 12",
+    answer: "September 12, 2026",
     supporting:
-      "In June, before the migration delay, the recorded launch date was still September 12.",
+      "In June, before the July 18 revision, the recorded launch date was still September 12.",
     temporal: {
       current: { value: "SEP 12", label: "ACTIVE" },
       asOf: "June 2026",
     },
     evidence: [
-      { meta: "SESSION 06 · MAY 14", value: "Launch → Sep 12", caption: "Original decision", state: "ACTIVE", tone: "current" },
-      { meta: "SESSION 24 · JUL 27", value: "Migration delayed", caption: "Reason for change", state: "LATER" },
-      { meta: "SESSION 29 · AUG 02", value: "Launch → Oct 3", caption: "Revised decision", state: "LATER" },
+      { meta: "JUN 03 · session-2026-06-03-launch", value: "September 12, 2026", caption: "Recorded in June", state: "ACTIVE", tone: "current" },
+      { meta: "JUL 18 · session-2026-07-18-launch", value: "October 3, 2026", caption: "Later revision", state: "LATER" },
     ],
-    trace: { retrieved: "3 sessions", resolved: "1 historical state", result: "State as of June" },
+    trace: { retrieved: "38 sessions", resolved: "1 historical state", result: "State as of June" },
   },
   connected: {
     id: "connected",
-    chip: "Why can’t we hire another engineer?",
-    question: "Why can’t we hire another engineer?",
+    chip: "Why can’t we hire another engineer before launch?",
+    question: "Why can’t we hire another engineer before launch?",
     answerLabel: "EXPLAINED",
-    answer: "Hiring is constrained by runway",
+    answer: "Do not hire another engineer before launch",
     supporting:
-      "Engineering hiring affects burn, burn reduces runway, and falling below the runway floor requires board approval.",
+      "Engineering hiring depends on monthly burn, a costly hire reduces runway, and hiring below the runway floor requires board approval.",
     connection: {
-      nodes: ["Engineer", "Burn", "Runway", "Board target"],
-      edges: ["affects", "affects", "constrained by"],
+      nodes: ["Engineer", "Monthly burn", "Runway", "Board approval"],
+      edges: ["depends on", "reduces", "requires"],
     },
     evidence: [
-      { meta: "SESSION 11 · MAR 02", value: "Engineering hiring open", caption: "Business rule", state: "CONTEXT" },
-      { meta: "SESSION 18 · JUN 30", value: "Burn → $84k/mo", caption: "Metric", state: "CONTEXT" },
-      { meta: "SESSION 20 · JUL 27", value: "Runway floor", caption: "Constraint", state: "CONTEXT" },
+      { meta: "JUL 22 · session-2026-07-22-hiring", value: "Do not hire another engineer before launch", caption: "Hiring constraint", state: "CONTEXT" },
+      { meta: "JUL 20 · session-2026-07-20-finance", value: "Monthly burn above $92,000", caption: "Cost impact", state: "CONTEXT" },
+      { meta: "JUL 21 · session-2026-07-21-runway", value: "Runway above nine months", caption: "Runway floor", state: "CONTEXT" },
+      { meta: "JUL 23 · session-2026-07-23-board", value: "Board approval required", caption: "Decision gate", state: "CONTEXT" },
     ],
     trace: { retrieved: "4 sessions", resolved: "1 constraint chain", result: "Constrained state" },
   },
@@ -169,11 +168,11 @@ export default function ProductDemoSection() {
         <div className="pd-header">
           <div className="pd-brand">
             <span className="pd-brand-name">Klazz</span>
-            <span className="pd-company">Acme AI &middot; Company Memory</span>
+            <span className="pd-company">Lumen Labs &middot; Company Memory</span>
           </div>
           <div className="pd-meta">
-            <span>Updated Aug 02</span>
-            <span>32 sessions</span>
+            <span>Updated Jul 25</span>
+            <span>38 sessions</span>
           </div>
         </div>
 

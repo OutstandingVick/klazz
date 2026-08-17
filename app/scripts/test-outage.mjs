@@ -27,7 +27,7 @@ for (let attempt = 1; attempt <= 30; attempt++) {
   try {
     recovered = await ask();
     if (recovered.status === 200) break;
-  } catch {}
+  } catch (pollError) { void pollError; }
   await new Promise(resolve => setTimeout(resolve,1_000));
 }
 if (recovered?.status !== 200 || recovered.body.answer !== before.body.answer) throw new Error("Klazz did not recover its original HydraDB-backed answer");

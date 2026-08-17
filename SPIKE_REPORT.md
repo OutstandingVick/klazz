@@ -65,4 +65,4 @@ The smallest strengthening step is a three-concept native traversal for the hiri
 
 ## Next Action
 
-Do not build the UI yet. Convert 6–8 representative sessions into the graph schema and prove the three-concept hiring traversal plus candidate retrieval. Then scale immediately to the complete benchmark.
+Done since the proof: the full Klazz app and the seven-section public landing page shipped in `app/` (`/`, `/app`, `/api/ask`). The landing-page product demo in `components/landing/ProductDemoSection.tsx` now shows real, verified corpus data (Lumen Labs, 38 sessions, updated Jul 25, actual launch supersession and the hiring→burn→runway→board chain with real session ids). The three-concept hiring traversal this section originally scoped is the live `Why can’t we hire another engineer before launch?` question, and full-corpus retrieval is covered by the HTTP journey tests. See `HANDOFF.md` for current status and guardrails.

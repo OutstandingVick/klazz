@@ -377,9 +377,13 @@ These are not blockers for the hackathon golden path:
 4. The app is a single demo workspace with no tenant isolation or admin UI.
 5. There is no public HydraDB explorer URL. Verification uses query IDs, read epochs, and direct-row comparison instead.
 6. GitHub Actions CI is not configured; tests are currently run manually.
-7. `app/README.md` still contains substantial vinext starter text and should be rewritten if documentation polish is desired.
-8. The final “Next Action” in `SPIKE_REPORT.md` predates the completed application and must not be treated as the current status.
+7. `app/README.md` documented the real app and routes at the top but still carries vinext starter scaffolding further down that could be trimmed.
+8. The final “Next Action” in `SPIKE_REPORT.md` was updated to reflect the completed application; treat `HANDOFF.md` status above it as authoritative.
 9. The UI shows that it is HydraDB-backed but does not continuously health-check the service; actual failures surface after a question is submitted.
+
+## 14.1 Landing page (approved polish, shipped)
+
+`/` is a seven-section public landing page (Hero, Problem, How Klazz Thinks, Product demo, Then vs Now, HydraDB, Closing) composed in `app/app/page.tsx` from `app/components/landing/*`. It is a RSC page, not a mock; only the Section 4 product demo uses hard-coded presentational data, and it now mirrors the real corpus: Lumen Labs, 38 sessions, updated Jul 25, the Sep 12 → Oct 3 launch supersession (`session-2026-06-03-launch`, `session-2026-07-18-launch`), and the hiring→burn→runway→board chain (`session-2026-07-22-hiring`, `-07-20-finance`, `-07-21-runway`, `-07-23-board`). `Try Klazz` links to `/app`, which calls the real `/api/ask`. Landing integrity, real-data display, the four demo questions, adaptive evidence grid, and failure/retry affordances are covered by `tests/landing.test.mjs`.
 
 ## 15. Recommended next work
 

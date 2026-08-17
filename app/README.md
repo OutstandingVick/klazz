@@ -2,6 +2,22 @@
 
 This directory contains the production Klazz interface and `/api/ask` backend route. It queries HydraDB OS for current, historical, and absent company facts and returns evidence suitable for independent verification.
 
+## What this app is
+
+Klazz is an "institutional memory for AI executives" demo. It asks company questions, retrieves the relevant history from a local HydraDB graph, resolves what changed (supersessions), and answers — or explicitly abstains with no supported memory. It never calls an LLM; answers are formatted from HydraDB evidence.
+
+Routes:
+
+- `/` — seven-section public landing page (Hero, Problem, How Klazz Thinks, Product demo, Then vs Now, HydraDB, Closing). Landing components live in `components/landing/`.
+- `/app` — the interactive workspace (`app/KlazzClient.tsx`): ask a question, view evidence, retry on failure.
+- `/api/ask` — the query backend (`app/api/ask/route.ts` + `lib/klazz.ts`); returns `{ state, answer, explanation, path, evidence, verification }`.
+
+The Section 4 product demo in `components/landing/ProductDemoSection.tsx` uses real, verified corpus data (Lumen Labs company memory: 38 sessions, updated Jul 25, the Sep→Oct launch supersession, and the hiring→burn→runway→board dependency chain), not invented numbers.
+
+Seed & scripts: `scripts/seed-hydra.mjs` (canonical corpus), `scripts/evaluate.mjs`, `scripts/test-outage.mjs`. Tests: `tests/*.test.mjs` (`node --test`); HTTP tests run against `KLAZZ_TEST_URL` and skip when unset. The palette is `#CADCFC` / `#8AB6F9` / `#00246B`.
+
+The starter text below is leftover vinext scaffolding; the runtime commands (`npm run dev`, `npm run build`, `npm run lint`, `npm test`) are the ones actually used.
+
 ## Runtime
 
 A clean full-stack starter running on
