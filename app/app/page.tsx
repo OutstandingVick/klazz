@@ -4,6 +4,7 @@ import HowKlazzThinks from "../components/landing/HowKlazzThinks";
 import ProductDemoSection from "../components/landing/ProductDemoSection";
 import ThenNowSection from "../components/landing/ThenNowSection";
 import HydraDBSection from "../components/landing/HydraDBSection";
+import ClosingSection from "../components/landing/ClosingSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <ProductDemoSection />
       <ThenNowSection />
       <HydraDBSection />
+      <ClosingSection />
     </>
   );
 }
