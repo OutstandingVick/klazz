@@ -1,2 +1,5 @@
-import KlazzClient from "./KlazzClient";
-export default function Home() { return <KlazzClient />; }
+import Hero from "../components/landing/Hero";
+
+export default function Home() {
+  return <Hero />;
+}

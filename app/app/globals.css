@@ -117,3 +117,338 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
   .evidenceGrid article>div { align-items:flex-start; gap:8px; }
   .verification { line-height:1.5; }
 }
+
+/* ============================================================
+   Klazz landing — Section 1 (Hero)
+   Direction B: deep navy canvas, pale typography, blue chrome
+   Brand palette: #CADCFC (light) / #8AB6F9 (mid) / #00246B (navy)
+   ============================================================ */
+
+.landing-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 90% at 78% -12%, rgba(138, 182, 249, 0.16) 0%, rgba(138, 182, 249, 0) 55%),
+    radial-gradient(150% 120% at 82% 105%, rgba(0, 22, 70, 0.7) 0%, rgba(0, 22, 70, 0) 60%),
+    #00246B;
+  color: #eef3ff;
+}
+
+/* --- Navigation (integrated, not a dashboard header) --- */
+.landing-nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  padding: 1.65rem clamp(1.5rem, 5vw, 4.5rem);
+  animation: landing-nav-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: #f2f7ff;
+}
+.landing-wordmark-mark {
+  display: grid;
+  place-items: center;
+}
+.landing-wordmark-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.75rem);
+}
+.landing-nav-links a {
+  color: rgba(238, 243, 255, 0.74);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color 0.25s ease;
+}
+.landing-nav-links a:hover { color: #ffffff; }
+
+.landing-nav-cta {
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  background: #CADCFC;
+  color: #00246B !important;
+  font-weight: 650 !important;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 22px rgba(202, 220, 252, 0.28);
+}
+.landing-nav-cta:hover {
+  background: #e6efff;
+  transform: translateY(-1px);
+}
+
+/* --- Content frame --- */
+.landing-hero-inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: min(100vw, 1500px);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem);
+}
+
+.landing-copy {
+  position: relative;
+  z-index: 4;
+  max-width: min(52rem, 78ch);
+  padding-top: clamp(0.5rem, 3vw, 3rem);
+}
+
+.landing-eyebrow {
+  margin: 0 0 1.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+  animation: landing-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+.landing-title-line {
+  animation: landing-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+.landing-title-line--emphasis {
+  animation-delay: 0.2s;
+}
+.landing-lede {
+  animation: landing-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+.landing-title {
+  margin: 0 0 1.7rem;
+  font-size: clamp(2.1rem, 4.34vw, 4.96rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.landing-title-line {
+  display: block;
+}
+.landing-title-line--emphasis {
+  font-weight: 760;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+.landing-title-line:not(.landing-title-line--emphasis) {
+  color: #CADCFC;
+}
+
+.landing-lede {
+  margin: 0 0 2.75rem;
+  max-width: 42rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  line-height: 1.58;
+  color: rgba(238, 243, 255, 0.82);
+  font-weight: 400;
+}
+
+.landing-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  animation: landing-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+.landing-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  transition: transform 0.22s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.landing-cta--primary {
+  padding: 1.05rem 2.4rem;
+  background: #CADCFC;
+  color: #00246B;
+  box-shadow: 0 14px 40px rgba(202, 220, 252, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.landing-cta--primary:hover {
+  background: #e6efff;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(202, 220, 252, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.landing-cta--secondary {
+  padding: 1.02rem 1.6rem;
+  color: rgba(238, 243, 255, 0.86);
+  border: 1px solid rgba(202, 220, 252, 0.28);
+  background: rgba(202, 220, 252, 0.05);
+}
+.landing-cta--secondary:hover {
+  color: #ffffff;
+  border-color: rgba(202, 220, 252, 0.55);
+  background: rgba(202, 220, 252, 0.1);
+}
+
+/* --- Liquid chrome form --- */
+.landing-liquid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.landing-liquid-glow {
+  position: absolute;
+  top: -10%;
+  right: -8%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 920px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 182, 249, 0.22) 0%, rgba(138, 182, 249, 0) 65%);
+  filter: blur(40px);
+  animation: landing-glow 9s ease-in-out infinite;
+}
+.landing-liquid-svg {
+  position: absolute;
+  top: -5rem;
+  right: -12rem;
+  width: clamp(560px, 66vw, 1050px);
+  height: auto;
+  max-width: 120vw;
+  transform: translateZ(0);
+  will-change: transform;
+  animation: landing-float 11s ease-in-out infinite;
+}
+
+/* --- Temporal-memory cue (Then -> Now) --- */
+.landing-cue {
+  position: absolute;
+  z-index: 4;
+  right: clamp(1.5rem, 5vw, 4.5rem);
+  bottom: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: landing-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+.landing-cue-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(138, 182, 249, 0.85);
+}
+.landing-cue-pair {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+.landing-cue-pair > span:first-child {
+  color: rgba(238, 243, 255, 0.55);
+  text-decoration: line-through;
+  text-decoration-color: rgba(202, 220, 252, 0.5);
+}
+.landing-cue-arrow {
+  color: #CADCFC;
+  font-weight: 500;
+}
+.landing-cue-now {
+  color: #ffffff;
+}
+
+/* --- Entrance motion --- */
+@keyframes landing-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes landing-nav-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes landing-float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-1.5%, 1.2%, 0) scale(1.015); }
+}
+@keyframes landing-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+/* --- Accessibility: visible focus --- */
+.landing-hero a:focus-visible {
+  outline: 2px solid #CADCFC;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1080px) {
+  .landing-liquid-svg { top: -3rem; right: -16rem; width: clamp(520px, 78vw, 950px); }
+  .landing-title { line-height: 1.01; }
+}
+
+@media (max-width: 820px) {
+  .landing-hero-inner { flex-direction: column; justify-content: flex-start; align-items: flex-start; }
+  .landing-copy { padding-top: clamp(1rem, 6vh, 3.5rem); }
+  .landing-liquid { z-index: 0; }
+  .landing-liquid-svg { top: auto; right: -22rem; bottom: -8rem; width: 560px; }
+  .landing-cue { right: clamp(1.5rem, 5vw, 3rem); bottom: clamp(1.25rem, 4vw, 2.5rem); }
+}
+
+@media (max-width: 600px) {
+  .landing-nav-links a:not(.landing-nav-cta) { display: none; }
+  .landing-nav { padding: 1.15rem 1.25rem; gap: 1rem; }
+  .landing-hero-inner { padding: 0.5rem 1.25rem 5rem; }
+  .landing-copy { padding-top: clamp(0.5rem, 4vh, 2rem); max-width: 100%; }
+  .landing-eyebrow { font-size: 0.7rem; letter-spacing: 0.26em; margin-bottom: 1.2rem; }
+  .landing-title { font-size: clamp(1.6rem, 7.75vw, 2.48rem); line-height: 1.0; margin-bottom: 1.4rem; }
+  .landing-lede { font-size: 1.05rem; margin-bottom: 2.1rem; }
+  .landing-cta-row { flex-direction: column; align-items: stretch; gap: 0.85rem; }
+  .landing-cta { width: 100%; padding: 1rem 1.4rem; }
+  .landing-liquid-svg { right: -26rem; bottom: -6rem; width: 470px; opacity: 0.92; }
+  .landing-cue { align-items: flex-start; bottom: clamp(1rem, 4vw, 1.8rem); }
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .landing-nav,
+  .landing-eyebrow,
+  .landing-title-line,
+  .landing-lede,
+  .landing-cta-row,
+  .landing-cue {
+    animation: none;
+    transform: none;
+  }
+  .landing-liquid-svg,
+  .landing-liquid-glow {
+    animation: none;
+  }
+  .landing-cta,
+  .landing-nav-cta,
+  .landing-nav-links a {
+    transition: none;
+  }
+}
