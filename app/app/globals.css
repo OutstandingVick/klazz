@@ -2367,9 +2367,6 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
   max-width: min(100vw, 1400px);
   margin: clamp(3.5rem, 6vw, 5rem) auto 0;
   padding: 0 clamp(1.5rem, 5vw, 4.5rem);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 .landing-hydra-note {
   margin: 0;
@@ -2379,29 +2376,6 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
   line-height: 1.5;
   color: rgba(202, 220, 252, 0.85);
   max-width: 36rem;
-}
-.landing-hydra-trace {
-  align-self: flex-end;
-  border: 1px solid rgba(202, 220, 252, 0.25);
-  border-radius: 8px;
-  padding: 1rem 1.3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  background: rgba(10, 40, 110, 0.35);
-}
-.hd-trace-row {
-  font-size: 0.8rem;
-  color: rgba(238, 243, 255, 0.8);
-  font-variant-numeric: tabular-nums;
-}
-.hd-trace-row i {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.58rem;
-  letter-spacing: 0.16em;
-  color: #8AB6F9;
-  margin-right: 0.6rem;
 }
 
 /* --- Reveal --- */

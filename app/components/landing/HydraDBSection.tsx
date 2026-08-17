@@ -149,18 +149,11 @@ export default function HydraDBSection() {
         </div>
       </div>
 
-      {/* Sponsor annotation + developer trace */}
+      {/* Sponsor annotation */}
       <div className="landing-hydra-foot">
         <p className="landing-hydra-note reveal hy-9">
           Without HydraDB, Klazz loses its connected organizational context layer.
         </p>
-
-        <div className="landing-hydra-trace reveal hy-9" aria-label="Architecture trace">
-          <span className="hd-trace-row"><i>QUERY</i> &ldquo;When are we launching now?&rdquo;</span>
-          <span className="hd-trace-row"><i>HYDRADB</i> 3 relevant sessions retrieved</span>
-          <span className="hd-trace-row"><i>KLAZZ</i> 1 supersession chain resolved</span>
-          <span className="hd-trace-row"><i>RESULT</i> Oct 3</span>
-        </div>
       </div>
     </section>
   );
