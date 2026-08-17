@@ -251,14 +251,6 @@ export default function ProductDemoSection() {
           )}
         </div>
       </div>
-
-      {/* Bridge into Section 5 */}
-      <footer className="landing-product-closer reveal prod-5">
-        <p className="landing-product-closer-line">
-          The same history can produce different correct answers depending on when you ask.
-        </p>
-        <p className="landing-product-closer-sub">That&rsquo;s where temporal memory becomes useful.</p>
-      </footer>
     </section>
   );
 }

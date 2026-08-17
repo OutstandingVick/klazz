@@ -144,14 +144,6 @@ export default function HowKlazzThinks() {
           </div>
         </article>
       </div>
-
-      {/* Bridge into Section 4 */}
-      <footer className="landing-think-closer">
-        <p className="landing-think-closer-line reveal think-7">
-          Company memory becomes useful when the system understands how everything relates.
-        </p>
-        <p className="landing-think-closer-sub reveal think-8">Now ask Klazz a real question.</p>
-      </footer>
     </section>
   );
 }

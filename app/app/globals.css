@@ -1091,29 +1091,6 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
   color: #CADCFC;
 }
 
-/* --- Closer / bridge into Section 4 --- */
-.landing-think-closer {
-  width: 100%;
-  max-width: min(100vw, 1400px);
-  margin: clamp(4rem, 7vw, 6rem) auto 0;
-  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
-}
-.landing-think-closer-line {
-  margin: 0 0 0.7rem;
-  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  color: #ffffff;
-  max-width: 40rem;
-}
-.landing-think-closer-sub {
-  margin: 0;
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  font-weight: 500;
-  color: #8AB6F9;
-}
-
 /* --- Reveal (armed via JS --prep, fired via --in) --- */
 .landing-think .reveal {
   opacity: 1;
