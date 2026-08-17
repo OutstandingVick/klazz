@@ -2098,3 +2098,390 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
     animation: none;
   }
 }
+
+/* ============================================================
+   Klazz landing — Section 6 (Powered by HydraDB)
+   Technical foundation. Deep navy canvas, precise 5-part flow.
+   ============================================================ */
+
+.landing-hydra {
+  position: relative;
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(138, 182, 249, 0.14) 0%, rgba(138, 182, 249, 0) 60%),
+    #00246B;
+  color: #eef3ff;
+  padding: clamp(6rem, 11vw, 10rem) 0 clamp(6rem, 10vw, 9rem);
+  overflow: hidden;
+}
+
+.landing-hydra-top {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+}
+.landing-hydra-eyebrow {
+  margin: 0 0 1.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.landing-hydra-title {
+  margin: 0 0 1.6rem;
+  font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: #ffffff;
+  max-width: 720px;
+}
+.landing-hydra-title span {
+  display: block;
+  font-weight: 760;
+  letter-spacing: -0.04em;
+}
+.landing-hydra-intro {
+  margin: 0;
+  max-width: 40rem;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.6;
+  color: rgba(238, 243, 255, 0.82);
+}
+
+/* --- Technical flow pipeline --- */
+.landing-hydra-flow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 2fr 1fr 2fr 1fr 2fr;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  align-items: stretch;
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+
+.hd-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 1.4rem clamp(0.9rem, 1.6vw, 1.4rem) 1.2rem;
+  border-top: 1px solid rgba(202, 220, 252, 0.3);
+}
+.hd-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+}
+.hd-main {
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  font-weight: 650;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.hd-body {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(238, 243, 255, 0.8);
+}
+.hd-meta {
+  margin-top: auto;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: rgba(202, 220, 252, 0.65);
+}
+.hd-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.hd-items li {
+  font-size: 0.85rem;
+  color: rgba(238, 243, 255, 0.78);
+}
+.hd-items li::before {
+  content: "·";
+  color: #8AB6F9;
+  margin-right: 0.5rem;
+}
+
+/* HydraDB column is central and emphasized */
+.hd-step--core {
+  border-top-color: #CADCFC;
+  background: linear-gradient(180deg, rgba(138, 182, 249, 0.14), rgba(138, 182, 249, 0));
+  padding-top: 1.8rem;
+}
+.hd-step--core .hd-main {
+  font-size: clamp(1.3rem, 1.7vw, 1.6rem);
+  font-weight: 760;
+}
+.hd-step--core .hd-label {
+  color: #CADCFC;
+}
+.hd-orb {
+  position: absolute;
+  top: 1.9rem;
+  right: 1.2rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #f2f7ff, #8AB6F9 45%, #00246B 90%);
+  box-shadow: 0 0 0 5px rgba(138, 182, 249, 0.15);
+}
+
+/* Connector */
+.hd-conn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding-top: 1.4rem;
+}
+.hd-conn-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #8AB6F9, #CADCFC);
+  opacity: 0.6;
+}
+.hd-conn-arrow {
+  color: #8AB6F9;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* 03 CONNECT path */
+.hd-path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+.hd-path-node {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #ffffff;
+  border: 1px solid rgba(202, 220, 252, 0.35);
+  border-radius: 3px;
+  padding: 0.3rem 0.6rem;
+  background: rgba(202, 220, 252, 0.06);
+}
+.hd-path-edge {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8AB6F9;
+  padding-left: 0.3rem;
+}
+
+/* 04 RESOLVE */
+.hd-resolve {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.hd-resolve-old {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #8AB6F9;
+}
+.hd-resolve-edge {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(202, 220, 252, 0.7);
+}
+.hd-resolve-new {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* 05 ANSWER */
+.hd-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.hd-output b {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.hd-output i {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: #CADCFC;
+}
+
+/* --- Proof row --- */
+.landing-hydra-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: clamp(4rem, 7vw, 6rem) auto 0;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+.hd-proof {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.6rem clamp(1.25rem, 2.5vw, 2rem);
+  border-top: 1px solid rgba(202, 220, 252, 0.3);
+}
+.hd-proof + .hd-proof {
+  border-left: 1px solid rgba(202, 220, 252, 0.3);
+}
+.hd-proof-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #CADCFC;
+}
+.hd-proof-copy {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(238, 243, 255, 0.85);
+}
+.hd-proof-meta {
+  margin-top: auto;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  color: #8AB6F9;
+}
+
+/* --- Sponsor note + trace --- */
+.landing-hydra-foot {
+  width: 100%;
+  max-width: min(100vw, 1400px);
+  margin: clamp(3.5rem, 6vw, 5rem) auto 0;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.landing-hydra-note {
+  margin: 0;
+  padding-left: 1.2rem;
+  border-left: 2px solid #8AB6F9;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(202, 220, 252, 0.85);
+  max-width: 36rem;
+}
+.landing-hydra-trace {
+  align-self: flex-end;
+  border: 1px solid rgba(202, 220, 252, 0.25);
+  border-radius: 8px;
+  padding: 1rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: rgba(10, 40, 110, 0.35);
+}
+.hd-trace-row {
+  font-size: 0.8rem;
+  color: rgba(238, 243, 255, 0.8);
+  font-variant-numeric: tabular-nums;
+}
+.hd-trace-row i {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: #8AB6F9;
+  margin-right: 0.6rem;
+}
+
+/* --- Reveal --- */
+.landing-hydra .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-hydra--prep .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.landing-hydra--in .reveal {
+  opacity: 1;
+  transform: none;
+}
+.landing-hydra--prep .hy-1 { transition-delay: 0.05s; }
+.landing-hydra--prep .hy-2 { transition-delay: 0.12s; }
+.landing-hydra--prep .hy-3 { transition-delay: 0.2s; }
+.landing-hydra--prep .hy-4 { transition-delay: 0.3s; }
+.landing-hydra--prep .hy-5 { transition-delay: 0.42s; }
+.landing-hydra--prep .hy-6 { transition-delay: 0.54s; }
+.landing-hydra--prep .hy-7 { transition-delay: 0.66s; }
+.landing-hydra--prep .hy-8 { transition-delay: 0.78s; }
+.landing-hydra--prep .hy-9 { transition-delay: 0.9s; }
+
+/* --- Responsive --- */
+@media (max-width: 1080px) {
+  .landing-hydra-flow {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 0;
+  }
+  .landing-hydra-flow .hd-conn {
+    display: none;
+  }
+  .hd-step {
+    border-left: 1px solid rgba(202, 220, 252, 0.3);
+    border-top: none;
+    padding-left: 1.2rem;
+  }
+  .hd-step--core {
+    background: none;
+  }
+  .hd-conn {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-hydra {
+    padding: 4.5rem 0 4.5rem;
+  }
+  .landing-hydra-title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+  .landing-hydra-flow {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .landing-hydra-proof {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .hd-proof + .hd-proof {
+    border-left: none;
+    border-top: 1px solid rgba(202, 220, 252, 0.3);
+  }
+  .landing-hydra-foot {
+    flex-direction: column;
+  }
+  .landing-hydra-trace {
+    align-self: stretch;
+  }
+}
+
+/* --- Reduced motion for Section 6 --- */
+@media (prefers-reduced-motion: reduce) {
+  .landing-hydra .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
