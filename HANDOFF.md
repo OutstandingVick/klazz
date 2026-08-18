@@ -14,7 +14,9 @@ The golden path is complete. The deployed application answered the current launc
 - HydraDB query ID: `http-query-232`
 - HydraDB read epoch: `34`
 
-Production application: <https://klazz-company-memory.outstandingvick.chatgpt.site>
+Production application: <https://klazz-ai.vercel.app>
+
+The Vercel deployment forwards `/api/ask` to the retained Sites deployment, which owns the non-exportable production HydraDB credential and performs the real graph query. The response still includes HydraDB query ID, read epoch, evidence, and graph path. The Sites URL remains <https://klazz-company-memory.outstandingvick.chatgpt.site>.
 
 GitHub repository: <https://github.com/OutstandingVick/klazz>
 
@@ -331,7 +333,7 @@ This creates real graph data, tests current/historical/unknown queries and a mal
 
 - Host: OpenAI Sites.
 - Project ID in `app/.openai/hosting.json`: `appgprj_6a8079c6698081918458115fc506c284`.
-- Public URL: <https://klazz-company-memory.outstandingvick.chatgpt.site>.
+- Public URL: <https://klazz-ai.vercel.app>.
 - Last recorded Sites version in `PROJECT_STATUS.md`: version 6.
 - Live API check on 2026-08-17: HTTP 200 with the correct current launch answer and fresh HydraDB provenance.
 

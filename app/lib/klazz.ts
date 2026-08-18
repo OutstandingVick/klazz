@@ -68,7 +68,7 @@ export function combineHydraResponses(responses: HydraResponse[]): HydraResponse
 }
 
 type HydraValue = { type: string; value: unknown };
-type HydraResponse = { query_id?: string; columns?: string[]; rows?: HydraValue[][]; read_epoch?: number; bookmark?: string };
+export type HydraResponse = { query_id?: string; columns?: string[]; rows?: HydraValue[][]; read_epoch?: number; bookmark?: string; error?: { message?: string } };
 function rowObject(response: HydraResponse, row: HydraValue[]) { return Object.fromEntries((response.columns ?? []).map((column, index) => [column, row[index]?.value])); }
 
 export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {

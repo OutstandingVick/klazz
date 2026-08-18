@@ -6,6 +6,8 @@ The hackathon MVP intentionally uses deterministic evidence-to-text formatting r
 
 The production web application lives in `app/`; the root scripts preserve the original HydraDB feasibility proof and raw-runtime tests.
 
+Live application: <https://klazz-ai.vercel.app>
+
 ## Run the application
 
 Start HydraDB on ports `18443`, `17687`, and `19090`, then configure `app/.env.local` from `app/.env.example`.
@@ -29,7 +31,7 @@ KLAZZ_TEST_URL=http://localhost:3000 npm run evaluate
 KLAZZ_TEST_URL=http://localhost:3000 HYDRADB_URL=http://127.0.0.1:18443 HYDRADB_TOKEN=... npm run verify -- "When are we launching now?"
 ```
 
-The evaluation command runs 40 stable, current, historical, multi-session, and abstention questions through the same HTTP route used by the UI. The hosted application requires `HYDRADB_URL` and `HYDRADB_TOKEN` as runtime environment variables. It never falls back to mocked company data when HydraDB is unavailable.
+The evaluation command runs 40 stable, current, historical, multi-session, and abstention questions through the same HTTP route used by the UI. A deployment can query HydraDB directly with `HYDRADB_URL` and `HYDRADB_TOKEN`, or forward to an existing production Klazz API with `KLAZZ_UPSTREAM_URL`. Neither path falls back to mocked company data when HydraDB is unavailable.
 
 `seed:reset` removes only nodes labeled `Fact`, `Constraint`, or `Session` with `app_id: 'klazz-demo'`, then recreates the deterministic 40-record corpus. Every seed waits for a successful strong query before writing.
 
