@@ -7,6 +7,7 @@ const cases = [
   ["What was our launch date in June?", "answer", "September 12, 2026"],
   ["What is our current headcount?", "answer", "10 employees"],
   ["What was our headcount in June?", "answer", "8 employees"],
+  ["Are we launching a web or mobile product?", "answer", "Web application"],
   ["Why can’t we hire another engineer before launch?", "answer", "Do not hire another engineer before launch"],
   ["What is our revenue?", "abstain", "I don’t have a recorded company memory that answers that yet."],
   ["Who is our lawyer?", "abstain", "I don’t have a recorded company memory that answers that yet."]

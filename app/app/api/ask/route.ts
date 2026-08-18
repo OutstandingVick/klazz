@@ -1,4 +1,4 @@
-import { classifyQuestion, combineHydraResponses, cyphersFor, shapeResult } from "../../../lib/klazz";
+import { classifyQuestion, combineHydraResponses, cyphersFor, questionForUpstream, shapeResult } from "../../../lib/klazz";
 import type { HydraResponse } from "../../../lib/klazz";
 
 export async function POST(request: Request) {
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   try {
     if (upstreamUrl) {
       if (new URL(upstreamUrl).origin === new URL(request.url).origin) throw new Error("Klazz upstream cannot point to itself");
-      const response = await fetch(`${upstreamUrl}/api/ask`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }), signal: controller.signal });
+      const response = await fetch(`${upstreamUrl}/api/ask`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: questionForUpstream(kind, question) }), signal: controller.signal });
       const body = await response.json();
       return Response.json(body, { status: response.status });
     }

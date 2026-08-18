@@ -27,12 +27,17 @@ export function classifyQuestion(question: string): QueryKind {
   if (/(hire|hiring|engineer).*(launch)|launch.*(hire|hiring|engineer)/.test(normalized)) return "multi";
   if (/launch/.test(normalized) && /june|historical|previous|original|use(?:d)? to|was our|before july/.test(normalized)) return "historical";
   if (/launch region|which countr|where.*launch/.test(normalized)) return "stable_region";
+  if (/primary platform|web or mobile|web.*mobile|mobile.*web|web.*product|mobile.*product/.test(normalized)) return "stable_platform";
   if (/launch|go(?:ing)? live/.test(normalized)) return "current";
   if (/company.*name|name.*company|what are we called/.test(normalized)) return "stable_name";
   if (/ideal customer|target customer|who.*sell to/.test(normalized)) return "stable_customer";
   if (/price|pricing|cost.*month/.test(normalized)) return "stable_price";
-  if (/primary platform|web or mobile|what platform/.test(normalized)) return "stable_platform";
+  if (/what platform/.test(normalized)) return "stable_platform";
   return "unknown";
+}
+
+export function questionForUpstream(kind: QueryKind, question: string) {
+  return kind === "stable_platform" ? "Are we web or mobile?" : question;
 }
 
 export function cypherFor(kind: QueryKind) {

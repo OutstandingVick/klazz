@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classifyQuestion, combineHydraResponses, cyphersFor, resolveFactAtTime, shapeResult } from "../lib/klazz.ts";
+import { classifyQuestion, combineHydraResponses, cyphersFor, questionForUpstream, resolveFactAtTime, shapeResult } from "../lib/klazz.ts";
 
 test("routes current, historical, and absent questions deterministically", () => {
   assert.equal(classifyQuestion("When are we launching now?"), "current");
@@ -12,6 +12,8 @@ test("routes current, historical, and absent questions deterministically", () =>
   assert.equal(classifyQuestion("Which countries are we launching in?"), "stable_region");
   assert.equal(classifyQuestion("What is our current headcount?"), "current_headcount");
   assert.equal(classifyQuestion("What was our headcount in June?"), "historical_headcount");
+  assert.equal(classifyQuestion("Are we launching a web or mobile product?"), "stable_platform");
+  assert.equal(questionForUpstream("stable_platform", "Are we launching a web or mobile product?"), "Are we web or mobile?");
 });
 
 test("a zero-row HydraDB response remains empty through combination", () => {
