@@ -24,7 +24,7 @@ export function classifyQuestion(question: string): QueryKind {
   const normalized = question.toLowerCase();
   if (/headcount|employees|people.*team/.test(normalized) && /june|historical|previous|used to|before july/.test(normalized)) return "historical_headcount";
   if (/headcount|employees|people.*team/.test(normalized)) return "current_headcount";
-  if (/(hire|hiring|engineer).*(launch)|launch.*(hire|hiring|engineer)/.test(normalized)) return "multi";
+  if (/(hire|hiring|engineer)/.test(normalized) && /(launch|block|constraint|prevent|why|cannot|can't|can’t)/.test(normalized)) return "multi";
   if (/launch/.test(normalized) && /june|historical|previous|original|use(?:d)? to|was our|before july/.test(normalized)) return "historical";
   if (/launch region|which countr|where.*launch/.test(normalized)) return "stable_region";
   if (/primary platform|web or mobile|web.*mobile|mobile.*web|web.*product|mobile.*product/.test(normalized)) return "stable_platform";
@@ -37,7 +37,9 @@ export function classifyQuestion(question: string): QueryKind {
 }
 
 export function questionForUpstream(kind: QueryKind, question: string) {
-  return kind === "stable_platform" ? "Are we web or mobile?" : question;
+  if (kind === "stable_platform") return "Are we web or mobile?";
+  if (kind === "multi") return "Why can’t we hire another engineer before launch?";
+  return question;
 }
 
 export function cypherFor(kind: QueryKind) {

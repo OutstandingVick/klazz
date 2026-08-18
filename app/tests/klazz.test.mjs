@@ -14,6 +14,8 @@ test("routes current, historical, and absent questions deterministically", () =>
   assert.equal(classifyQuestion("What was our headcount in June?"), "historical_headcount");
   assert.equal(classifyQuestion("Are we launching a web or mobile product?"), "stable_platform");
   assert.equal(questionForUpstream("stable_platform", "Are we launching a web or mobile product?"), "Are we web or mobile?");
+  assert.equal(classifyQuestion("What blocks another engineering hire?"), "multi");
+  assert.equal(questionForUpstream("multi", "What blocks another engineering hire?"), "Why can’t we hire another engineer before launch?");
 });
 
 test("a zero-row HydraDB response remains empty through combination", () => {
