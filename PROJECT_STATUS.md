@@ -4,7 +4,7 @@
 
 - Status: complete
 - Vercel access mode: public
-- Primary URL: `https://klazz-ai.vercel.app`
+- Primary URL: `https://useklazz.vercel.app`
 - Sites deployment retained as the HydraDB-authenticated production API
 - Fresh unauthenticated API result: HTTP 200
 - Verified answer: October 3, 2026
@@ -13,7 +13,7 @@
 ## Step 2 — Production benchmark
 
 - Status: complete
-- Target: `https://klazz-ai.vercel.app`
+- Target: `https://useklazz.vercel.app`
 - Result: 40/40 passed
 - Abstention: 6/6 passed
 - Categories: stable, current, historical, multi-session, abstention
@@ -70,4 +70,4 @@
 - Production HTTP tests: 17/17 passed
 - Production benchmark: 40/40 passed
 - Production corpus: 40 records with three mutable fact families
-- URL: `https://klazz-ai.vercel.app`
+- URL: `https://useklazz.vercel.app`

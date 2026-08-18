@@ -6,7 +6,7 @@ The hackathon MVP intentionally uses deterministic evidence-to-text formatting r
 
 The production web application lives in `app/`; the root scripts preserve the original HydraDB feasibility proof and raw-runtime tests.
 
-Live application: <https://klazz-ai.vercel.app>
+Live application: <https://useklazz.vercel.app>
 
 ## Run the application
 
