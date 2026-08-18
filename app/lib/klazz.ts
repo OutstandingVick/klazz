@@ -81,7 +81,8 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
     const resolution = resolveFactAtTime(candidates,"2026-06-30T23:59:59Z");
     if (resolution.status === "not_found") return { state:"abstain", answer:ABSTENTION, temporalStatus:"unknown", explanation:"No launch state existed at the requested time.", evidence:[], path:[], verification };
     const selected = resolution.selectedFact!;
-    return { state: "answer", answer:selected.value, temporalStatus: "historical", explanation: `This was the ${factKey.replace("_"," ")} state recorded at the end of June.`, evidence: [selected], path: [selected.value], verification };
+    const subject = factKey === "launch_date" ? "planned launch date" : "recorded headcount";
+    return { state: "answer", answer:selected.value, temporalStatus: "historical", explanation: `As of June 30, 2026, the ${subject} was ${selected.value}. It was active at that time${selected.status === "superseded" ? " and has since been superseded" : ""}.`, evidence: [selected], path: [selected.value], verification };
   }
   if (kind === "multi") {
     const row = rows[0];

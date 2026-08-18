@@ -56,3 +56,8 @@ test("failure and retry affordances remain present", () => {
   assert.match(clientSource, />Retry</, "app exposes a retry control");
   assert.match(clientSource, /Checking memory…/, "app shows a loading state while retrying");
 });
+
+test("historical evidence distinguishes past validity from current status", () => {
+  assert.match(clientSource, /As of June 30, 2026/, "historical answers name their knowledge cutoff");
+  assert.match(clientSource, /Active at that time — now superseded/, "historical evidence explains its status transition");
+});

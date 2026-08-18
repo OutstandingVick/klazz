@@ -47,6 +47,17 @@ test("shapes a HydraDB current-state row with provenance", () => {
   assert.equal(result.verification.readEpoch, 4);
 });
 
+test("explains historical values as plans active at the cutoff", () => {
+  const result = shapeResult("historical", { query_id:"q-historical", read_epoch:4, columns:["value","session_id","event_time","status"], rows:[
+    [{type:"string",value:"September 12, 2026"},{type:"string",value:"s1"},{type:"string",value:"2026-06-03T10:00:00Z"},{type:"string",value:"superseded"}],
+    [{type:"string",value:"October 3, 2026"},{type:"string",value:"s2"},{type:"string",value:"2026-07-18T15:00:00Z"},{type:"string",value:"active"}],
+  ] });
+  assert.equal(result.answer, "September 12, 2026");
+  assert.equal(result.temporalStatus, "historical");
+  assert.equal(result.explanation, "As of June 30, 2026, the planned launch date was September 12, 2026. It was active at that time and has since been superseded.");
+  assert.equal(result.evidence[0].status, "superseded", "the stored current status remains truthful");
+});
+
 test("generic resolver surfaces conflict and not-found states", () => {
   const base = { factKey:"launch_date", eventTime:"2026-07-01T00:00:00Z", status:"active" };
   assert.equal(resolveFactAtTime([{...base,sessionId:"s1",value:"A"},{...base,sessionId:"s2",value:"B"}]).status,"conflict");

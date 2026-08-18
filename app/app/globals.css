@@ -64,7 +64,7 @@ h1 { margin:0; color:var(--navy); font-weight:800; letter-spacing:-.05em; font-s
 .evidenceGrid strong,.evidenceGrid code { display:block; }
 .evidenceGrid strong { color:var(--navy); font-size:19px; font-weight:650; margin-bottom:5px; }
 .evidenceGrid code { color:var(--muted); font-size:10px; overflow-wrap:anywhere; }
-.evidenceState { border-radius:999px; padding:4px 7px; font-size:9px!important; text-transform:uppercase; font-weight:800; letter-spacing:.07em; }
+.evidenceState { border-radius:999px; padding:4px 7px; font-size:9px!important; text-transform:uppercase; font-weight:800; letter-spacing:.07em; line-height:1.35; }
 .evidenceState.active { background:var(--light); color:var(--navy); }
 .evidenceState.superseded { background:#e9effb; color:#536487; }
 .verification { margin-top:16px; padding-top:12px; border-top:1px solid var(--line); color:#8a918c; font:11px var(--font-geist-mono),monospace; overflow-wrap:anywhere; }
