@@ -69,3 +69,14 @@ The hosted v1 route shown in parts of the web documentation, `/recall/full_recal
 - `BLOCKED`: Docker, runtime startup, or an API error prevented execution.
 
 See `SPIKE_REPORT.md` for the engineering decision and required PRD changes.
+
+## Open-source attribution
+
+Klazz-authored source code is released under the [MIT License](LICENSE). Third-party software remains subject to its respective upstream license, including:
+
+- [HydraDB OS](https://github.com/hydra-db/hydradb) — the graph database used for persistence, strong-consistency retrieval, and relationship traversal; licensed under GNU AGPLv3.
+- [vinext](https://github.com/cloudflare/vinext) — the React application and Cloudflare-compatible build runtime; licensed under MIT.
+- [React](https://github.com/facebook/react), [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) — application framework, styling, and database tooling. Their licenses and exact versions are recorded in `app/package.json` and `app/package-lock.json`.
+- [OpenAI Sites](https://openai.com/) — application hosting for the public hackathon demo.
+
+The Lumen Labs company-memory corpus is synthetic and was created specifically for this project. No third-party dataset is included.
