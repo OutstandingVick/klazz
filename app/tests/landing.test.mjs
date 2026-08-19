@@ -6,6 +6,7 @@ const base = process.env.KLAZZ_TEST_URL;
 const clientSource = await readFile(new URL("../app/KlazzClient.tsx", import.meta.url), "utf8");
 const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 const thinkingSource = await readFile(new URL("../components/landing/HowKlazzThinks.tsx", import.meta.url), "utf8");
+const heroSource = await readFile(new URL("../components/landing/Hero.tsx", import.meta.url), "utf8");
 
 test("landing page ships all seven sections in order", { skip: !base }, async () => {
   const html = await (await fetch(`${base}/`)).text();
@@ -50,6 +51,19 @@ test("the four demo questions resolve to their expected states", { skip: !base }
 
 test("demo evidence grid adapts to a variable number of sources", () => {
   assert.match(css, /repeat\(auto-fit,\s*minmax\(180px,\s*1fr\)\)/, "evidence grid must be adaptive");
+});
+
+test("hero is the cinematic Klazz memory campaign", () => {
+  assert.match(heroSource, /Your company remembers everything\./);
+  assert.match(heroSource, /Klazz knows what&rsquo;s still true\./);
+  assert.match(heroSource, /hero-memory-sculpture\.png/);
+  assert.match(heroSource, /Previous[\s\S]*SEP&nbsp;12[\s\S]*Current[\s\S]*OCT&nbsp;3/);
+  assert.doesNotMatch(heroSource, /landing-liquid|<svg/);
+  for (const item of ["How it works", "Product", "HydraDB", "Try Klazz"]) {
+    assert.ok(heroSource.includes(item), `missing ${item} navigation item`);
+  }
+  assert.match(css, /@media \(max-width: 860px\)[\s\S]*?\.landing-hero-inner\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.landing-stage-image\s*\{\s*animation:\s*none/);
 });
 
 test("How Klazz Thinks is an editorial four-scene gallery", () => {
