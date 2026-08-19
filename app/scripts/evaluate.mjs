@@ -13,6 +13,7 @@ const cases = [
   ...expand("multi", "Hiring must wait until launch to protect the nine-month runway.", ["Why can’t we hire another engineer before launch?","Why is hiring an engineer blocked before launch?","Explain the engineer hiring constraint before launch","Why must hiring wait until launch?"]),
   ...expand("multi", "Not without board approval.", ["Can we hire an engineer before launch?"]),
   ...expand("multi", "Another engineering hire can proceed before launch only with board approval.", ["Under what condition could we approve another engineering hire?","What approval is required for another engineering hire?","Is there an exception to the engineering hiring constraint?"]),
+  ...expand("multi", "Another hire raises monthly burn above $92,000, which reduces runway below nine months and triggers the pre-launch hiring restriction.", ["How are our burn rate, runway requirement, and hiring plan connected?","What would another engineering hire do to our runway?","How does burn rate affect the engineering hiring plan?"]),
   ...expand("multi", "The nine-month runway floor blocks another engineering hire.", ["What blocks another engineering hire before launch?","What blocks another engineering hire?"]),
   ...expand("abstention", "I don’t have a recorded company memory that answers that yet.", ["Who is our lawyer?","What is our revenue?","What is the office address?","Who is our auditor?","What is our tax ID?","Which bank do we use?"]),
 ];

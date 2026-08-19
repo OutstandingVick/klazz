@@ -13,6 +13,7 @@ const cases = [
   ["Why must hiring wait until launch?", "answer", "Hiring must wait until launch to protect the nine-month runway."],
   ["Can we hire another engineer before launch?", "answer", "Not without board approval."],
   ["Under what condition could we approve another engineering hire?", "answer", "Another engineering hire can proceed before launch only with board approval."],
+  ["How are our burn rate, runway requirement, and hiring plan connected?", "answer", "Another hire raises monthly burn above $92,000, which reduces runway below nine months and triggers the pre-launch hiring restriction."],
   ["What is our revenue?", "abstain", "I don’t have a recorded company memory that answers that yet."],
   ["Who is our lawyer?", "abstain", "I don’t have a recorded company memory that answers that yet."]
 ];

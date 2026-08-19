@@ -12,11 +12,13 @@ export const HIRING_BLOCKER_ANSWER = "The nine-month runway floor blocks another
 export const HIRING_WAIT_ANSWER = "Hiring must wait until launch to protect the nine-month runway.";
 export const HIRING_APPROVAL_ANSWER = "Not without board approval.";
 export const HIRING_CONDITION_ANSWER = "Another engineering hire can proceed before launch only with board approval.";
+export const HIRING_CONNECTION_ANSWER = "Another hire raises monthly burn above $92,000, which reduces runway below nine months and triggers the pre-launch hiring restriction.";
 export const HIRING_EXPLANATION = "Another hire would raise monthly burn above $92,000 and reduce runway below the required nine months. Before launch, doing so requires board approval.";
 
 function hiringAnswerFor(question: string) {
   const normalized = question.trim().toLowerCase();
   if (/^can\b/.test(normalized)) return HIRING_APPROVAL_ANSWER;
+  if (/\bconnect(?:ed|ion)?\b|\brelat(?:e|ed|ionship)\b|\bburn(?:\s+rate)?\b|\brunway\b|\bimpact\b|\baffect\b/.test(normalized)) return HIRING_CONNECTION_ANSWER;
   if (/\bcondition\b|\bapprov(?:e|al|ed|ing)\b|\bexception\b/.test(normalized)) return HIRING_CONDITION_ANSWER;
   if (/\bwhy\b|\bwait\b|\bexplain\b/.test(normalized)) return HIRING_WAIT_ANSWER;
   return HIRING_BLOCKER_ANSWER;
@@ -42,7 +44,7 @@ export function classifyQuestion(question: string): QueryKind {
   const normalized = question.toLowerCase();
   if (/headcount|employees|people.*team/.test(normalized) && /june|historical|previous|used to|before july/.test(normalized)) return "historical_headcount";
   if (/headcount|employees|people.*team/.test(normalized)) return "current_headcount";
-  if (/(hire|hiring|engineer)/.test(normalized) && /(launch|block|constraint|prevent|why|cannot|can't|can’t|condition|approv|could)/.test(normalized)) return "multi";
+  if (/(hire|hiring|engineer)/.test(normalized) && /(launch|block|constraint|prevent|why|cannot|can't|can’t|condition|approv|could|connect|relat|burn|runway|impact|affect|restriction|evidence|decision)/.test(normalized)) return "multi";
   if (/launch/.test(normalized) && /june|historical|previous|original|use(?:d)? to|was our|before july/.test(normalized)) return "historical";
   if (/launch region|which countr|where.*launch/.test(normalized)) return "stable_region";
   if (/primary platform|web or mobile|web.*mobile|mobile.*web|web.*product|mobile.*product/.test(normalized)) return "stable_platform";

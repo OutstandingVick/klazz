@@ -16,6 +16,7 @@ test("routes current, historical, and absent questions deterministically", () =>
   assert.equal(questionForUpstream("stable_platform", "Are we launching a web or mobile product?"), "Are we web or mobile?");
   assert.equal(classifyQuestion("What blocks another engineering hire?"), "multi");
   assert.equal(classifyQuestion("Under what condition could we approve another engineering hire?"), "multi");
+  assert.equal(classifyQuestion("How are our burn rate, runway requirement, and hiring plan connected?"), "multi");
   assert.equal(questionForUpstream("multi", "What blocks another engineering hire?"), "Why can’t we hire another engineer before launch?");
 });
 
@@ -49,6 +50,7 @@ test("answers hiring questions according to what the user asked", () => {
   assert.equal(normalizeAskResult("multi", "Why must hiring wait until launch?", upstream).answer, "Hiring must wait until launch to protect the nine-month runway.");
   assert.equal(normalizeAskResult("multi", "Can we hire another engineer before launch?", upstream).answer, "Not without board approval.");
   assert.equal(normalizeAskResult("multi", "Under what condition could we approve another engineering hire?", upstream).answer, "Another engineering hire can proceed before launch only with board approval.");
+  assert.equal(normalizeAskResult("multi", "How are our burn rate, runway requirement, and hiring plan connected?", upstream).answer, "Another hire raises monthly burn above $92,000, which reduces runway below nine months and triggers the pre-launch hiring restriction.");
   assert.equal(normalizeAskResult("multi", "Why must hiring wait until launch?", upstream).explanation, "Another hire would raise monthly burn above $92,000 and reduce runway below the required nine months. Before launch, doing so requires board approval.");
 });
 
