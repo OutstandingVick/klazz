@@ -67,7 +67,7 @@ test("hero is the cinematic Klazz memory campaign", () => {
 });
 
 test("How Klazz Thinks is an editorial four-scene gallery", () => {
-  assert.match(thinkingSource, /Company memory only works when the system understands what happened/);
+  assert.match(thinkingSource, /Company memory only works when the system understands/);
   for (const behavior of ["Remember", "Connect", "Resolve", "Know when not to answer"]) {
     assert.ok(thinkingSource.includes(`<h3>${behavior}</h3>`), `missing ${behavior} story tile`);
   }
@@ -75,6 +75,13 @@ test("How Klazz Thinks is an editorial four-scene gallery", () => {
   assert.match(css, /\.landing-think-gallery\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,/);
   assert.match(css, /\.landing-think-tile--abstain\s*\{[\s\S]*?grid-column:\s*1 \/ -1/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.landing-think-gallery\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
+});
+
+test("How Klazz Thinks headline uses a centered two-line editorial lockup", () => {
+  assert.match(thinkingSource, /<span>Company memory only works when the system understands<\/span>/);
+  assert.match(thinkingSource, /<span>what happened, how it connects, and what still applies\.<\/span>/);
+  assert.match(css, /\.landing-think-top\s*\{[\s\S]*?text-align:\s*center/);
+  assert.match(css, /\.landing-think-title span\s*\{\s*display:\s*block/);
 });
 
 test("failure and retry affordances remain present", () => {
