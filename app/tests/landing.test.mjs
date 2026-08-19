@@ -7,6 +7,7 @@ const clientSource = await readFile(new URL("../app/KlazzClient.tsx", import.met
 const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 const thinkingSource = await readFile(new URL("../components/landing/HowKlazzThinks.tsx", import.meta.url), "utf8");
 const heroSource = await readFile(new URL("../components/landing/Hero.tsx", import.meta.url), "utf8");
+const problemSource = await readFile(new URL("../components/landing/ProblemSection.tsx", import.meta.url), "utf8");
 
 test("landing page ships all seven sections in order", { skip: !base }, async () => {
   const html = await (await fetch(`${base}/`)).text();
@@ -64,6 +65,17 @@ test("hero is the cinematic Klazz memory campaign", () => {
   }
   assert.match(css, /@media \(max-width: 860px\)[\s\S]*?\.landing-hero-inner\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.landing-stage-image\s*\{\s*animation:\s*none/);
+});
+
+test("The Problem is a responsive editorial memory grid", () => {
+  assert.match(problemSource, /Company truth changes\. Old information doesn&rsquo;t disappear\./);
+  assert.match(problemSource, /The system can retrieve both the old answer and the new one/);
+  for (const change of ["SEP 12", "OCT 3", "$120K", "$90K", "OPEN", "FROZEN", "Maya", "Amara"]) {
+    assert.ok(problemSource.includes(change), `missing ${change} state`);
+  }
+  assert.match(problemSource, /Relevant &ne; Current/);
+  assert.match(css, /\.problem-collage\s*\{[\s\S]*?grid-template-columns:\s*repeat\(4,/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.problem-collage\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
 
 test("How Klazz Thinks is an editorial four-scene gallery", () => {
