@@ -33,7 +33,7 @@ export default function HowKlazzThinks() {
           <p className="landing-think-eyebrow reveal think-1">How Klazz thinks</p>
           <h2 id="think-title" className="landing-think-title reveal think-2">
             <span>Company memory only works when the system understands</span>
-            <span>what happened, how it connects, and what still applies.</span>
+            <span className="text-blue-950">what happened, how it connects, and what still applies.</span>
           </h2>
           <p className="landing-think-intro reveal think-3">
             Klazz turns fragmented company history into usable organizational context.
