@@ -91,7 +91,7 @@ test("How Klazz Thinks is an editorial four-scene gallery", () => {
 
 test("How Klazz Thinks headline uses a centered two-line editorial lockup", () => {
   assert.match(thinkingSource, /<span>Company memory only works when the system understands<\/span>/);
-  assert.match(thinkingSource, /<span>what happened, how it connects, and what still applies\.<\/span>/);
+  assert.match(thinkingSource, /<span[^>]*>what happened, how it connects, and what still applies\.<\/span>/);
   assert.match(css, /\.landing-think-top\s*\{[\s\S]*?text-align:\s*center/);
   assert.match(css, /\.landing-think-title span\s*\{\s*display:\s*block/);
 });
