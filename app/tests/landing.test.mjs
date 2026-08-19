@@ -35,7 +35,7 @@ test("the four demo questions resolve to their expected states", { skip: !base }
   const cases = [
     ["When are we launching now?", "answer", "October 3, 2026"],
     ["What was our launch date in June?", "answer", "September 12, 2026"],
-    ["Why can’t we hire another engineer before launch?", "answer", "The nine-month runway floor blocks another engineering hire."],
+    ["Why can’t we hire another engineer before launch?", "answer", "Hiring must wait until launch to protect the nine-month runway."],
     ["Who is our lawyer?", "abstain", "I don’t have a recorded company memory that answers that yet."]
   ];
   for (const [question, state, answer] of cases) {

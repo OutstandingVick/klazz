@@ -9,7 +9,9 @@ const cases = [
   ["What was our headcount in June?", "answer", "8 employees"],
   ["Are we launching a web or mobile product?", "answer", "Web application"],
   ["What blocks another engineering hire?", "answer", "The nine-month runway floor blocks another engineering hire."],
-  ["Why can’t we hire another engineer before launch?", "answer", "The nine-month runway floor blocks another engineering hire."],
+  ["Why can’t we hire another engineer before launch?", "answer", "Hiring must wait until launch to protect the nine-month runway."],
+  ["Why must hiring wait until launch?", "answer", "Hiring must wait until launch to protect the nine-month runway."],
+  ["Can we hire another engineer before launch?", "answer", "Not without board approval."],
   ["What is our revenue?", "abstain", "I don’t have a recorded company memory that answers that yet."],
   ["Who is our lawyer?", "abstain", "I don’t have a recorded company memory that answers that yet."]
 ];

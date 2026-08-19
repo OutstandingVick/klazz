@@ -1,4 +1,4 @@
-import { classifyQuestion, combineHydraResponses, cyphersFor, normalizeUpstreamResult, questionForUpstream, shapeResult } from "../../../lib/klazz";
+import { classifyQuestion, combineHydraResponses, cyphersFor, normalizeAskResult, questionForUpstream, shapeResult } from "../../../lib/klazz";
 import type { HydraResponse } from "../../../lib/klazz";
 
 export async function POST(request: Request) {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       if (new URL(upstreamUrl).origin === new URL(request.url).origin) throw new Error("Klazz upstream cannot point to itself");
       const response = await fetch(`${upstreamUrl}/api/ask`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: questionForUpstream(kind, question) }), signal: controller.signal });
       const body = await response.json();
-      return Response.json(normalizeUpstreamResult(kind, body), { status: response.status });
+      return Response.json(normalizeAskResult(kind, question, body), { status: response.status });
     }
     if (!token) return Response.json({ state: "error", message: "Company memory is not configured. Please contact the workspace owner.", retryable: false }, { status: 503 });
     const bodies = await Promise.all(cyphersFor(kind).map(async query => {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       if (!response.ok) throw new Error(body.error?.message ?? `HydraDB returned HTTP ${response.status}`);
       return body;
     }));
-    return Response.json(shapeResult(kind, combineHydraResponses(bodies)));
+    return Response.json(normalizeAskResult(kind, question, shapeResult(kind, combineHydraResponses(bodies))));
   } catch (error) {
     const isAbortError = typeof error === "object" && error !== null && "name" in error && error.name === "AbortError";
     const message = isAbortError ? "Company memory took too long to respond. No fallback answer was used; please retry." : "Company memory is temporarily unavailable. Your question was not answered from a fallback.";

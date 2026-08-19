@@ -9,11 +9,20 @@ export type AskResult = {
 };
 export const ABSTENTION = "I don’t have a recorded company memory that answers that yet.";
 export const HIRING_BLOCKER_ANSWER = "The nine-month runway floor blocks another engineering hire.";
-export const HIRING_BLOCKER_EXPLANATION = "Another hire would raise monthly burn above $92,000. Until launch, hiring below that floor requires board approval.";
+export const HIRING_WAIT_ANSWER = "Hiring must wait until launch to protect the nine-month runway.";
+export const HIRING_APPROVAL_ANSWER = "Not without board approval.";
+export const HIRING_EXPLANATION = "Another hire would raise monthly burn above $92,000 and reduce runway below the required nine months. Before launch, doing so requires board approval.";
 
-export function normalizeUpstreamResult(kind: QueryKind, result: unknown) {
+function hiringAnswerFor(question: string) {
+  const normalized = question.trim().toLowerCase();
+  if (/^can\b/.test(normalized)) return HIRING_APPROVAL_ANSWER;
+  if (/\bwhy\b|\bwait\b|\bexplain\b/.test(normalized)) return HIRING_WAIT_ANSWER;
+  return HIRING_BLOCKER_ANSWER;
+}
+
+export function normalizeAskResult(kind: QueryKind, question: string, result: unknown) {
   if (kind !== "multi" || typeof result !== "object" || result === null || !("state" in result) || result.state !== "answer") return result;
-  return { ...result, answer: HIRING_BLOCKER_ANSWER, explanation: HIRING_BLOCKER_EXPLANATION };
+  return { ...result, answer: hiringAnswerFor(question), explanation: HIRING_EXPLANATION };
 }
 
 export function resolveFactAtTime(candidates: TemporalFact[], requestedTime: string | null = null): Resolution {
@@ -106,7 +115,7 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
       { sessionId: String(row.runway_session), eventTime: String(row.runway_time), value: String(row.runway_value), status: "active" as const },
       { sessionId: String(row.board_session), eventTime: String(row.board_time), value: String(row.board_value), status: "active" as const },
     ];
-    return { state: "answer", answer: HIRING_BLOCKER_ANSWER, temporalStatus: "current", explanation: HIRING_BLOCKER_EXPLANATION, evidence, path: [String(row.hire_value), "DEPENDS_ON", String(row.burn_value), "REDUCES", String(row.runway_value), "REQUIRES", String(row.board_value)], verification };
+    return { state: "answer", answer: HIRING_BLOCKER_ANSWER, temporalStatus: "current", explanation: HIRING_EXPLANATION, evidence, path: [String(row.hire_value), "DEPENDS_ON", String(row.burn_value), "REDUCES", String(row.runway_value), "REQUIRES", String(row.board_value)], verification };
   }
   if (kind.startsWith("stable_")) {
     const row = rows[0];
