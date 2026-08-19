@@ -3940,3 +3940,343 @@ button:disabled,input:disabled { opacity:.6; cursor:not-allowed; }
     transition: none;
   }
 }
+
+/* ============================================================
+   Landing page responsive hardening
+   Layout-only overrides: desktop art direction remains unchanged.
+   ============================================================ */
+
+@media (max-width: 1180px) {
+  .landing-product-frame {
+    width: calc(100% - clamp(2rem, 6vw, 4rem));
+  }
+
+  .landing-hydra-flow,
+  .landing-hydra-proof {
+    padding-right: clamp(1.25rem, 4vw, 3rem);
+    padding-left: clamp(1.25rem, 4vw, 3rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .landing-problem-lead {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "statement" "memory";
+  }
+
+  .problem-statement,
+  .problem-memory {
+    min-height: 25rem;
+  }
+
+  .problem-statement h2 {
+    max-width: 13ch;
+  }
+
+  .landing-product-top,
+  .landing-thennow-top,
+  .landing-thennow-final,
+  .landing-hydra-top,
+  .landing-hydra-foot,
+  .landing-close-main,
+  .landing-close-footer {
+    padding-right: clamp(1.25rem, 4vw, 2.5rem);
+    padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .pd-input,
+  .pd-answer-value,
+  .pd-answer-support,
+  .pd-evidence-meta,
+  .pd-evidence-value,
+  .pd-trace-row {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .landing-hydra-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-hydra-flow > .hd-step:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .landing-nav-links a:not(.landing-nav-cta) {
+    display: none;
+  }
+
+  .landing-nav-cta {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .landing-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .landing-copy,
+  .landing-stage,
+  .landing-think-inner,
+  .landing-product-frame {
+    min-width: 0;
+  }
+
+  .pd-header,
+  .pd-brand {
+    align-items: flex-start;
+  }
+
+  .pd-brand {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .pd-company {
+    overflow-wrap: anywhere;
+  }
+
+  .landing-close-cue {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 680px) {
+  .landing-problem-shell,
+  .landing-think-inner {
+    width: calc(100% - 2rem);
+  }
+
+  .problem-statement,
+  .problem-memory {
+    min-height: 0;
+  }
+
+  .problem-statement {
+    gap: 4rem;
+  }
+
+  .problem-memory {
+    min-height: 25rem;
+  }
+
+  .problem-support {
+    overflow-wrap: anywhere;
+  }
+
+  .landing-product-frame {
+    width: calc(100% - 2rem);
+  }
+
+  .pd-header,
+  .pd-ask,
+  .pd-output {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .pd-input {
+    height: auto;
+    padding: 0.9rem 1rem;
+    line-height: 1.35;
+  }
+
+  .pd-chip,
+  .pd-ask-btn {
+    min-height: 44px;
+  }
+
+  .pd-trace-row {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.5rem 0.8rem;
+  }
+
+  .pd-trace-row i {
+    margin-right: 0;
+  }
+
+  .tn-connector {
+    max-width: 100%;
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .tn-connector-body {
+    min-width: 0;
+  }
+
+  .landing-thennow-ribbon {
+    display: none;
+  }
+
+  .hd-step,
+  .hd-proof {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .landing-close-liquid {
+    min-height: 320px;
+  }
+
+  .landing-close-footer {
+    margin-top: clamp(5rem, 24vw, 8rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-nav {
+    gap: 0.75rem;
+  }
+
+  .landing-wordmark-text {
+    font-size: 1.1rem;
+  }
+
+  .landing-nav-cta {
+    padding-right: 0.9rem;
+    padding-left: 0.9rem;
+    font-size: 0.78rem;
+  }
+
+  .landing-title {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .landing-cta-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .landing-cta {
+    width: 100%;
+  }
+
+  .landing-stage {
+    min-height: 23rem;
+  }
+
+  .problem-tile,
+  .landing-product-frame {
+    border-radius: 1rem;
+  }
+
+  .problem-statement h2 {
+    font-size: clamp(2rem, 11.5vw, 2.75rem);
+    overflow-wrap: anywhere;
+  }
+
+  .problem-memory-fragment {
+    width: 88%;
+  }
+
+  .problem-inline-change {
+    font-size: clamp(1.45rem, 9vw, 2.25rem);
+  }
+
+  .problem-state-pair strong {
+    font-size: clamp(2.45rem, 16vw, 3.7rem);
+  }
+
+  .landing-think-title {
+    font-size: clamp(2.2rem, 11.5vw, 3.25rem);
+    overflow-wrap: anywhere;
+  }
+
+  .landing-think-tile,
+  .landing-think-tile--abstain {
+    height: clamp(24rem, 132vw, 28rem);
+  }
+
+  .tk-connect-node {
+    transform: scale(0.88);
+  }
+
+  .tk-resolve-date b {
+    font-size: clamp(2.25rem, 14vw, 3.25rem);
+  }
+
+  .pd-answer-value {
+    font-size: clamp(2rem, 11vw, 2.75rem);
+  }
+
+  .pd-evidence {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .tn-side {
+    min-height: 330px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .tn-value {
+    font-size: clamp(3.6rem, 19vw, 5.2rem);
+  }
+
+  .landing-hydra-flow,
+  .landing-hydra-proof {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .landing-hydra-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .landing-hydra-flow > .hd-step:last-child {
+    grid-column: auto;
+  }
+
+  .landing-close-title {
+    font-size: clamp(2.25rem, 11vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .landing-close-btn {
+    width: 100%;
+  }
+
+  .landing-close-cta {
+    width: 100%;
+  }
+
+  .landing-close-cue {
+    max-width: 100%;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 360px) {
+  .landing-wordmark-mark {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+
+  .landing-nav-cta {
+    min-height: 2.5rem;
+    padding-right: 0.72rem;
+    padding-left: 0.72rem;
+  }
+
+  .problem-memory-fragment span,
+  .pd-company,
+  .pd-chip {
+    font-size: 0.74rem;
+  }
+
+  .problem-memory-fragment--three {
+    left: 4%;
+  }
+
+  .landing-close-footer-bottom {
+    font-size: 0.72rem;
+  }
+}
