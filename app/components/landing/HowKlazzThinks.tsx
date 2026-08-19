@@ -41,7 +41,7 @@ export default function HowKlazzThinks() {
         </header>
 
         <div className="landing-think-gallery" role="list" aria-label="The four ways Klazz turns company history into context">
-          <article className="landing-think-tile landing-think-tile--remember reveal think-4" role="listitem" tabIndex={0}>
+          <article className="landing-think-tile landing-think-tile--remember reveal think-4" role="listitem">
             <span className="landing-think-number">01</span>
             <div className="tk-memory-scene" aria-hidden="true">
               <span className="tk-memory-axis" />
@@ -58,7 +58,7 @@ export default function HowKlazzThinks() {
             </div>
           </article>
 
-          <article className="landing-think-tile landing-think-tile--connect reveal think-5" role="listitem" tabIndex={0}>
+          <article className="landing-think-tile landing-think-tile--connect reveal think-5" role="listitem">
             <span className="landing-think-number">02</span>
             <div className="tk-connect-scene" aria-hidden="true">
               <span className="tk-connect-node tk-connect-node--hiring">Hiring</span>
@@ -75,7 +75,7 @@ export default function HowKlazzThinks() {
             </div>
           </article>
 
-          <article className="landing-think-tile landing-think-tile--resolve reveal think-6" role="listitem" tabIndex={0}>
+          <article className="landing-think-tile landing-think-tile--resolve reveal think-6" role="listitem">
             <span className="landing-think-number">03</span>
             <div className="tk-resolve-scene" aria-label="September 12, previous, superseded by October 3, current">
               <span className="tk-resolve-date tk-resolve-date--old"><b>SEP 12</b><i>Previous</i></span>
@@ -89,7 +89,7 @@ export default function HowKlazzThinks() {
             </div>
           </article>
 
-          <article className="landing-think-tile landing-think-tile--abstain reveal think-7" role="listitem" tabIndex={0}>
+          <article className="landing-think-tile landing-think-tile--abstain reveal think-7" role="listitem">
             <span className="landing-think-number">04</span>
             <div className="tk-abstain-scene" aria-label="Who is our lawyer? No supported memory">
               <span className="tk-abstain-query">Who is our lawyer?</span>

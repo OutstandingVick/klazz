@@ -5,6 +5,7 @@ import test from "node:test";
 const base = process.env.KLAZZ_TEST_URL;
 const clientSource = await readFile(new URL("../app/KlazzClient.tsx", import.meta.url), "utf8");
 const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+const thinkingSource = await readFile(new URL("../components/landing/HowKlazzThinks.tsx", import.meta.url), "utf8");
 
 test("landing page ships all seven sections in order", { skip: !base }, async () => {
   const html = await (await fetch(`${base}/`)).text();
@@ -49,6 +50,17 @@ test("the four demo questions resolve to their expected states", { skip: !base }
 
 test("demo evidence grid adapts to a variable number of sources", () => {
   assert.match(css, /repeat\(auto-fit,\s*minmax\(180px,\s*1fr\)\)/, "evidence grid must be adaptive");
+});
+
+test("How Klazz Thinks is an editorial four-scene gallery", () => {
+  assert.match(thinkingSource, /Company memory only works when the system understands what happened/);
+  for (const behavior of ["Remember", "Connect", "Resolve", "Know when not to answer"]) {
+    assert.ok(thinkingSource.includes(`<h3>${behavior}</h3>`), `missing ${behavior} story tile`);
+  }
+  assert.doesNotMatch(thinkingSource, /landing-think-ribbon|Memory is useful/);
+  assert.match(css, /\.landing-think-gallery\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,/);
+  assert.match(css, /\.landing-think-tile--abstain\s*\{[\s\S]*?grid-column:\s*1 \/ -1/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.landing-think-gallery\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
 
 test("failure and retry affordances remain present", () => {
