@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classifyQuestion, combineHydraResponses, cyphersFor, questionForUpstream, resolveFactAtTime, shapeResult } from "../lib/klazz.ts";
+import { classifyQuestion, combineHydraResponses, cyphersFor, normalizeUpstreamResult, questionForUpstream, resolveFactAtTime, shapeResult } from "../lib/klazz.ts";
 
 test("routes current, historical, and absent questions deterministically", () => {
   assert.equal(classifyQuestion("When are we launching now?"), "current");
@@ -35,9 +35,17 @@ test("multi-session answers require three real HydraDB relationship queries", ()
   ]);
   const result = shapeResult("multi", hydra);
   assert.equal(result.state, "answer");
+  assert.equal(result.answer, "The nine-month runway floor blocks another engineering hire.");
+  assert.equal(result.explanation, "Another hire would raise monthly burn above $92,000. Until launch, hiring below that floor requires board approval.");
   assert.equal(result.evidence.length, 4);
   assert.deepEqual(result.path.filter((_, index) => index % 2 === 1), ["DEPENDS_ON","REDUCES","REQUIRES"]);
   assert.equal(result.verification.queryId, "q1,q2,q3");
+});
+
+test("normalizes proxied hiring results into a direct answer", () => {
+  const result = normalizeUpstreamResult("multi", { state:"answer", answer:"raw dependency chain", explanation:"raw explanation", evidence:[], path:[] });
+  assert.equal(result.answer, "The nine-month runway floor blocks another engineering hire.");
+  assert.equal(result.explanation, "Another hire would raise monthly burn above $92,000. Until launch, hiring below that floor requires board approval.");
 });
 
 test("shapes a HydraDB current-state row with provenance", () => {

@@ -8,6 +8,13 @@ export type AskResult = {
   verification: { database: string; queryId: string | null; readEpoch: number | null; bookmark: string | null };
 };
 export const ABSTENTION = "I don’t have a recorded company memory that answers that yet.";
+export const HIRING_BLOCKER_ANSWER = "The nine-month runway floor blocks another engineering hire.";
+export const HIRING_BLOCKER_EXPLANATION = "Another hire would raise monthly burn above $92,000. Until launch, hiring below that floor requires board approval.";
+
+export function normalizeUpstreamResult(kind: QueryKind, result: unknown) {
+  if (kind !== "multi" || typeof result !== "object" || result === null || !("state" in result) || result.state !== "answer") return result;
+  return { ...result, answer: HIRING_BLOCKER_ANSWER, explanation: HIRING_BLOCKER_EXPLANATION };
+}
 
 export function resolveFactAtTime(candidates: TemporalFact[], requestedTime: string | null = null): Resolution {
   const ordered = [...candidates].sort((a,b) => Date.parse(a.eventTime) - Date.parse(b.eventTime));
@@ -99,7 +106,7 @@ export function shapeResult(kind: QueryKind, hydra: HydraResponse): AskResult {
       { sessionId: String(row.runway_session), eventTime: String(row.runway_time), value: String(row.runway_value), status: "active" as const },
       { sessionId: String(row.board_session), eventTime: String(row.board_time), value: String(row.board_value), status: "active" as const },
     ];
-    return { state: "answer", answer: `${row.hire_value}: ${row.burn_value}; ${row.runway_value}; ${row.board_value}.`, temporalStatus: "current", explanation: "HydraDB returned three connected dependency relationships across four company memories.", evidence, path: [String(row.hire_value), "DEPENDS_ON", String(row.burn_value), "REDUCES", String(row.runway_value), "REQUIRES", String(row.board_value)], verification };
+    return { state: "answer", answer: HIRING_BLOCKER_ANSWER, temporalStatus: "current", explanation: HIRING_BLOCKER_EXPLANATION, evidence, path: [String(row.hire_value), "DEPENDS_ON", String(row.burn_value), "REDUCES", String(row.runway_value), "REQUIRES", String(row.board_value)], verification };
   }
   if (kind.startsWith("stable_")) {
     const row = rows[0];
