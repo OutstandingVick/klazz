@@ -128,6 +128,13 @@ export default function ClosingSection() {
           <div className="landing-close-footcol">
             <span className="landing-close-footcol-label">Project</span>
             <a
+              href="https://github.com/OutstandingVick/klazz/blob/docs/klazz-documentation/README.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Documentation
+            </a>
+            <a
               href="https://github.com/OutstandingVick/klazz"
               target="_blank"
               rel="noopener noreferrer"

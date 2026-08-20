@@ -8,6 +8,7 @@ const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8
 const thinkingSource = await readFile(new URL("../components/landing/HowKlazzThinks.tsx", import.meta.url), "utf8");
 const heroSource = await readFile(new URL("../components/landing/Hero.tsx", import.meta.url), "utf8");
 const problemSource = await readFile(new URL("../components/landing/ProblemSection.tsx", import.meta.url), "utf8");
+const closingSource = await readFile(new URL("../components/landing/ClosingSection.tsx", import.meta.url), "utf8");
 
 test("landing page ships all seven sections in order", { skip: !base }, async () => {
   const html = await (await fetch(`${base}/`)).text();
@@ -65,6 +66,12 @@ test("hero is the cinematic Klazz memory campaign", () => {
   }
   assert.match(css, /@media \(max-width: 860px\)[\s\S]*?\.landing-hero-inner\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.landing-stage-image\s*\{\s*animation:\s*none/);
+});
+
+test("documentation is linked from the navbar and footer", () => {
+  const docsUrl = "https://github.com/OutstandingVick/klazz/blob/docs/klazz-documentation/README.md";
+  assert.ok(heroSource.includes(docsUrl), "navbar must link to the documentation");
+  assert.ok(closingSource.includes(docsUrl), "footer must link to the documentation");
 });
 
 test("The Problem is a responsive editorial memory grid", () => {
