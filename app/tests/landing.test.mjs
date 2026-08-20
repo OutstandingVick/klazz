@@ -9,6 +9,7 @@ const thinkingSource = await readFile(new URL("../components/landing/HowKlazzThi
 const heroSource = await readFile(new URL("../components/landing/Hero.tsx", import.meta.url), "utf8");
 const problemSource = await readFile(new URL("../components/landing/ProblemSection.tsx", import.meta.url), "utf8");
 const closingSource = await readFile(new URL("../components/landing/ClosingSection.tsx", import.meta.url), "utf8");
+const docsSource = await readFile(new URL("../app/docs/page.tsx", import.meta.url), "utf8");
 
 test("landing page ships all seven sections in order", { skip: !base }, async () => {
   const html = await (await fetch(`${base}/`)).text();
@@ -69,9 +70,19 @@ test("hero is the cinematic Klazz memory campaign", () => {
 });
 
 test("documentation is linked from the navbar and footer", () => {
-  const docsUrl = "https://github.com/OutstandingVick/klazz/blob/docs/klazz-documentation/README.md";
-  assert.ok(heroSource.includes(docsUrl), "navbar must link to the documentation");
-  assert.ok(closingSource.includes(docsUrl), "footer must link to the documentation");
+  assert.match(heroSource, /<Link href="\/docs">Docs<\/Link>/, "navbar must link to the documentation webpage");
+  assert.match(closingSource, /<Link href="\/docs">Documentation<\/Link>/, "footer must link to the documentation webpage");
+  for (const section of ["Why HydraDB", "Architecture", "Demo questions", "Run locally", "API reference", "Testing and verification"]) {
+    assert.ok(docsSource.includes(section), `documentation page is missing ${section}`);
+  }
+});
+
+test("documentation webpage is available in production", { skip: !base }, async () => {
+  const response = await fetch(`${base}/docs`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.ok(html.includes("Institutional memory that knows what still applies."));
+  assert.ok(html.includes("POST /v1/graphs/default/query"));
 });
 
 test("The Problem is a responsive editorial memory grid", () => {

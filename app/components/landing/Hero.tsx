@@ -16,13 +16,7 @@ export default function Hero() {
           <a href="#how-it-works">How it works</a>
           <a href="#product">Product</a>
           <a href="#hydradb">HydraDB</a>
-          <a
-            href="https://github.com/OutstandingVick/klazz/blob/docs/klazz-documentation/README.md"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Docs
-          </a>
+          <Link href="/docs">Docs</Link>
           <Link className="landing-nav-cta" href="/app">Try Klazz</Link>
         </div>
       </nav>
